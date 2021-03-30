@@ -1,7 +1,9 @@
 package com.project.bilbioteka.App.user;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("users")
 public class User {
 
     @Id

@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable String id) {
-        return userRepository.findById(Long.parseLong(id)).get();
+        return userRepository.findById(Long.parseLong(id));
     }
 
     @PostMapping("/users")
@@ -33,7 +33,10 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     public void updateUser(@RequestBody User user, @PathVariable String id) {
-        userRepository.save(user);
+        User updatedUser = userRepository.findById(Long.parseLong(id));
+        updatedUser.setName(user.getName());
+        updatedUser.setPassword(user.getPassword());
+        userRepository.save(updatedUser);
     }
 
     @DeleteMapping("/users/{id}")
