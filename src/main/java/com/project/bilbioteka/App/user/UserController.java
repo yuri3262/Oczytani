@@ -3,36 +3,44 @@ package com.project.bilbioteka.App.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userService.getAllUsers();
+        List<User> users = new ArrayList<>();
+        userRepository.findAll()
+                .forEach(users::add);
+
+        return users;
     }
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable String id) {
-        return userService.getUser(id);
+        return userRepository.findById(Long.parseLong(id));
     }
 
     @PostMapping("/users")
     public void addUser(@RequestBody User user) {
-        userService.addUser(user);
+        userRepository.save(user);
     }
 
     @PutMapping("/users/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody User user) {
-        userService.updateUser(id, user);
+    public void updateUser(@RequestBody User user, @PathVariable String id) {
+        User updatedUser = userRepository.findById(Long.parseLong(id));
+        updatedUser.setUserName(user.getUserName());
+        updatedUser.setPassword(user.getPassword());
+        userRepository.save(updatedUser);
     }
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable String id) {
-        userService.deleteUser(id);
+        userRepository.deleteById(Long.parseLong(id));
     }
 }

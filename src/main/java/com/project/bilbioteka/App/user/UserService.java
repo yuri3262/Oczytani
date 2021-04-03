@@ -1,42 +1,20 @@
 package com.project.bilbioteka.App.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
-public class UserService {
+@AllArgsConstructor
+public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll()
-                .forEach(users::add);
 
-        return users;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
     }
-
-    public User getUser(String id) {
-        return userRepository.findById(Long.parseLong(id));
-    }
-
-    public void addUser(User user) {
-        userRepository.save(user);
-    }
-
-    public void updateUser(String id, User user) {
-        User updatedUser = userRepository.findById(Long.parseLong(id));
-        updatedUser.setName(user.getName());
-        updatedUser.setPassword(user.getPassword());
-        userRepository.save(updatedUser);
-    }
-
-    public void deleteUser(String id) {
-        userRepository.deleteById(Long.parseLong(id));
-    }
-
 }
