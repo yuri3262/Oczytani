@@ -22,30 +22,34 @@ public class User implements UserDetails {
 
     @Id
     private Long id;
-    private String userName;
+    private String name;
     private String email;
     private String password;
-    private UserRole userRole;
+    private UserRole role;
 
-    public User( String name, String password, String email, UserRole userRole) {
-        this.userName = name;
+    public User( String name, String password, String email, UserRole role) {
+        this.name = name;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
         return Collections.singletonList(authority);
     }
 
     public String getUserName() {
-        return userName;
+        return name;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
@@ -75,5 +79,9 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setUserName(String userName) {
+        this.name = userName;
     }
 }
