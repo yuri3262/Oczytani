@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
@@ -34,5 +37,13 @@ public class UserService implements UserDetailsService {
         //TODO: SEND confrimation token
 
         return "it works";
+    }
+
+    public List<User> findAllUsers()
+    {
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+
+        return users;
     }
 }
