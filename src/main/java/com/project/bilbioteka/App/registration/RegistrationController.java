@@ -12,6 +12,11 @@ public class RegistrationController {
 
     @PostMapping
     public String register(@RequestBody RegistrationRequest request){
+//        System.out.println("////////////////Registration Controller.java//////////////////////");
+//        System.out.println("Request/name: " + request.getName());
+//        System.out.println("Request/password: " + request.getPassword());
+//        System.out.println("Request/mail: " + request.getEmail());
+//        System.out.println("/////////////////////////////////////");
         return registrationService.register(request);
     }
 

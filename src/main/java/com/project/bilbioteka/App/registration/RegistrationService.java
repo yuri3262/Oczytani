@@ -19,11 +19,25 @@ public class RegistrationService {
             throw new IllegalStateException("email invalid");
         }
 
-        return userService.signUpUser(
-                new User(request.getUserName(),
-                            request.getEmail(),
-                            request.getPassword(),
-                            UserRole.USER));
+//        User user = new User(request.getName(),
+//                request.getEmail(),
+//                request.getPassword(),
+//                UserRole.USER);
+////
+//        System.out.println("//////////////RegistrationService.java////////////////////////");
+//        System.out.println("Register/User/name: " + user.getName());
+//        System.out.println("Register/User/mail: " + user.getEmail());
+//        System.out.println("Register/User/password: " + user.getPassword());
+//        System.out.println("Register/request/name: " + request.getName());
+//        System.out.println("Register/request/mail: " + request.getEmail());
+//        System.out.println("Register/request/password: " + request.getPassword());
+//
+//        System.out.println("/////////////////////////////////////");
+
+        return userService.signUpUser(new User(request.getName(),
+                request.getEmail(),
+                request.getPassword(),
+                UserRole.USER));
     }
 }
 
