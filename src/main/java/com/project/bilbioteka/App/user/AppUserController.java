@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class UserController {
+public class AppUserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository userRepository;
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
+    public List<AppUser> getAllUsers() {
+        List<AppUser> users = new ArrayList<>();
         userRepository.findAll()
                 .forEach(users::add);
 
@@ -22,19 +22,19 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable String id) {
+    public AppUser getUser(@PathVariable String id) {
         return userRepository.findById(Long.parseLong(id));
     }
 
     @PostMapping("/users")
-    public void addUser(@RequestBody User user) {
+    public void addUser(@RequestBody AppUser user) {
         userRepository.save(user);
     }
 
     @PutMapping("/users/{id}")
-    public void updateUser(@RequestBody User user, @PathVariable String id) {
-        User updatedUser = userRepository.findById(Long.parseLong(id));
-        updatedUser.setUserName(user.getUserName());
+    public void updateUser(@RequestBody AppUser user, @PathVariable String id) {
+        AppUser updatedUser = userRepository.findById(Long.parseLong(id));
+        updatedUser.setUserName(user.getName());
         updatedUser.setPassword(user.getPassword());
         userRepository.save(updatedUser);
     }

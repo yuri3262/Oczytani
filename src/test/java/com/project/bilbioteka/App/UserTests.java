@@ -1,7 +1,7 @@
 package com.project.bilbioteka.App;
 
-import com.project.bilbioteka.App.user.User;
-import com.project.bilbioteka.App.user.UserRepository;
+import com.project.bilbioteka.App.user.AppUser;
+import com.project.bilbioteka.App.user.AppUserRepository;
 import com.project.bilbioteka.App.user.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,16 +17,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserTests {
 
     @Resource
-    private UserRepository userRepository;
+    private AppUserRepository userRepository;
 
     @Test
     public void givenUser_whenSave_thenGetOk() {
-        User user = new User("john","johny@doe.com" , "password", UserRole.USER );
+        AppUser user = new AppUser("john","johny@doe.com" , "password", UserRole.USER );
         userRepository.save(user);
 
-        Optional<User> optuser2 = userRepository.findByEmail("johny@doe.com");
+        Optional<AppUser> optuser2 = userRepository.findByEmail("johny@doe.com");
         assertEquals(true,optuser2.isPresent());
-        User user2 = optuser2.get();
+        AppUser user2 = optuser2.get();
         assertEquals("john", user2.getName());
         assertEquals("password", user2.getPassword());
         assertEquals("johny@doe.com", user2.getEmail());
@@ -34,7 +34,7 @@ class UserTests {
     }
     @Test
     public void givenUser_whenUpdate_thenGetOk() {
-        User user = new User("john", "johny@doe.com", "password", UserRole.USER );
+        AppUser user = new AppUser("john", "johny@doe.com", "password", UserRole.USER );
         user.setPassword("password2");
         user.setUserName("john2");
 

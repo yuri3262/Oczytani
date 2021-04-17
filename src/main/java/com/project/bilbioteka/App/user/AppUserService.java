@@ -1,5 +1,7 @@
 package com.project.bilbioteka.App.user;
 
+import com.project.bilbioteka.App.registration.token.ConfirmationToken;
+import com.project.bilbioteka.App.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,22 +9,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class AppUserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AppUserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
     }
 
-    public String signUpUser(User user)
+    public String signUpUser(AppUser user)
     {
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExists) {
@@ -34,16 +39,31 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
         userRepository.save(user);
 
-        //TODO: SEND confrimation token
+        String token = UUID.randomUUID().toString();
 
-        return "it works";
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
+
+//        TODO: SEND EMAIL
+
+        return token;
     }
 
-    public List<User> findAllUsers()
+    public List<AppUser> findAllUsers()
     {
-        List<User> users = new ArrayList<>();
+        List<AppUser> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
 
         return users;
+    }
+    public int enableUser(String email) {
+        return userRepository.enableUser(email);
     }
 }

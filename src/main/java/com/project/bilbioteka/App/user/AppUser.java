@@ -4,12 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -17,17 +17,22 @@ import java.util.Collections;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@Entity
 @Table("users")
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+    @Column(name = "enabled")
+    private Boolean enabled = false;
 
-    public User( String name,  String email,String password, UserRole role) {
+    public AppUser(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -40,10 +45,7 @@ public class User implements UserDetails {
         return Collections.singletonList(authority);
     }
 
-    public String getUserName() {
-        return name;
-    }
-
+    @Override
     public String getPassword() {
         return this.password;
     }
@@ -56,12 +58,12 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
@@ -71,12 +73,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
 
     public void setPassword(String password) {
