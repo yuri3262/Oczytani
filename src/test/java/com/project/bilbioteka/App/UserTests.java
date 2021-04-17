@@ -21,7 +21,7 @@ class UserTests {
 
     @Test
     public void givenUser_whenSave_thenGetOk() {
-        User user = new User("john", "password", "johny@doe.com", UserRole.USER );
+        User user = new User("john","johny@doe.com" , "password", UserRole.USER );
         userRepository.save(user);
 
         Optional<User> optuser2 = userRepository.findByEmail("johny@doe.com");
@@ -34,7 +34,7 @@ class UserTests {
     }
     @Test
     public void givenUser_whenUpdate_thenGetOk() {
-        User user = new User("john", "password", "johny@doe.com", UserRole.USER );
+        User user = new User("john", "johny@doe.com", "password", UserRole.USER );
         user.setPassword("password2");
         user.setUserName("john2");
 

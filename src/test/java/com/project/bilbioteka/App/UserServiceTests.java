@@ -23,7 +23,7 @@ class UserServiceTests {
 
     @Test
     public void givenUser_signUpUser_thenGetOk() {
-        User user = new User("john", "password", "john@doe.com", UserRole.USER );
+        User user = new User("john", "john@doe.com", "password", UserRole.USER );
 
         assertEquals("it works", userService.signUpUser(user));
     }

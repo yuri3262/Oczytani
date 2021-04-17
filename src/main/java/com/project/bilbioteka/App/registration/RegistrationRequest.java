@@ -11,12 +11,12 @@ import lombok.ToString;
 @ToString
 
 public class RegistrationRequest {
-    private final String userName;
+    private final String name;
     private final String email;
     private final String password;
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {
