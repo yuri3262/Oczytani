@@ -22,7 +22,7 @@ class AppUserServiceTests {
     public void givenUser_signUpUser_thenGetOk() {
         AppUser user = new AppUser("john", "john@doe.com", "password", UserRole.USER );
 
-        assertEquals("it works", userService.signUpUser(user));
+        String token = userService.signUpUser(user);
     }
 
 
