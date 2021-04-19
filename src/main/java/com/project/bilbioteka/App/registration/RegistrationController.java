@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping(path="/registration")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-    @PostMapping(path = "/registration")
+    @PostMapping
     public String registerUserAccount(
             @ModelAttribute("user") RegistrationRequest registrationRequest,
             HttpServletRequest request,
             Errors errors) {
-
         registrationService.register(registrationRequest);
         return "home";
     }
 
-    @GetMapping(path = "/registration")
+    @GetMapping
     public String showRegistrationForm(WebRequest request, Model model) {
         RegistrationRequest registrationRequest = new RegistrationRequest("name", "email@gmail.com", "pass");
         model.addAttribute("user", registrationRequest);
@@ -37,5 +37,7 @@ public class RegistrationController {
     public String confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
+
+
 
 }

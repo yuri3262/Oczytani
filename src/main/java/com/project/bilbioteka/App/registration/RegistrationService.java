@@ -27,20 +27,20 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
 
-        AppUser user = new AppUser(request.getName(),
-                request.getEmail(),
-                request.getPassword(),
-                UserRole.USER);
-//
-        System.out.println("//////////////RegistrationService.java////////////////////////");
-        System.out.println("Register/User/name: " + user.getName());
-        System.out.println("Register/User/mail: " + user.getEmail());
-        System.out.println("Register/User/password: " + user.getPassword());
-        System.out.println("Register/request/name: " + request.getName());
-        System.out.println("Register/request/mail: " + request.getEmail());
-        System.out.println("Register/request/password: " + request.getPassword());
+//        AppUser user = new AppUser(request.getName(),
+//                request.getEmail(),
+//                request.getPassword(),
+//                UserRole.USER);
 
-        System.out.println("/////////////////////////////////////");
+//        System.out.println("//////////////RegistrationService.java////////////////////////");
+//        System.out.println("Register/User/name: " + user.getName());
+//        System.out.println("Register/User/mail: " + user.getEmail());
+//        System.out.println("Register/User/password: " + user.getPassword());
+//        System.out.println("Register/request/name: " + request.getName());
+//        System.out.println("Register/request/mail: " + request.getEmail());
+//        System.out.println("Register/request/password: " + request.getPassword());
+//
+//        System.out.println("/////////////////////////////////////");
         String token = userService.signUpUser(
                 new AppUser(
                     request.getName(),
@@ -49,12 +49,10 @@ public class RegistrationService {
                     UserRole.USER
                 )
         );
-        /*
         String link = "http://localhost:8080/registration/confirm?token=" + token;
         emailSender.send(
                 request.getEmail(),
                 buildEmail(request.getName(), link));
-        */
 
         return token;
     }

@@ -30,6 +30,7 @@ public class AppUser implements UserDetails {
     private UserRole role;
     @Column(name = "enabled")
     private Boolean enabled = false;
+    private Boolean locked = false;
 
     public AppUser(String name, String email, String password, UserRole role) {
         this.name = name;
@@ -67,7 +68,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
