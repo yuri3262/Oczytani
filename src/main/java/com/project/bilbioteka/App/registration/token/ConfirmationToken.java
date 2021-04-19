@@ -4,7 +4,6 @@ import com.project.bilbioteka.App.user.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.relational.core.mapping.Table;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table("confirmation_token")
+@Table(name = "confirmation_token")
 
 public class ConfirmationToken {
 
