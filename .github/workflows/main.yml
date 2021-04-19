@@ -8,7 +8,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: ${{ github.workspace }}
   JAVA_VERSION: '1.8'
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-  DB_PROPERTIES_FILE: ${{ github.workspace }}/target/classes/application.properties
+  DB_PROPERTIES_FILE: ${{ github.workspace }}/src/main/resources/application.properties
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 jobs:
   test-build-and-deploy:
