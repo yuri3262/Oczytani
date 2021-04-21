@@ -80,6 +80,13 @@ public class RegistrationService {
         return "confirmed";
     }
 
+    public boolean isConfirmed(String token)
+    {
+        if(confirmationTokenService.getToken(token).get().getConfirmedAt().isBefore(LocalDateTime.now())){
+            return true;
+        }
+        else return false;
+    }
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +

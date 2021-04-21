@@ -55,6 +55,14 @@ public class AppUserService implements UserDetailsService {
 
         return token;
     }
+    public AppUser findAppUserByEmail(String email)
+    {
+        boolean userExists = userRepository.findByEmail(email).isPresent();
+        if(!userExists) {
+            throw new IllegalStateException("email not shown in database");
+        }
+        return userRepository.findByEmail(email).get();
+    }
 
     public List<AppUser> findAllUsers()
     {

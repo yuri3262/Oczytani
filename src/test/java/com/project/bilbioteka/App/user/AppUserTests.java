@@ -1,20 +1,16 @@
-package com.project.bilbioteka.App;
+package com.project.bilbioteka.App.user;
 
-import com.project.bilbioteka.App.user.AppUser;
-import com.project.bilbioteka.App.user.AppUserRepository;
-import com.project.bilbioteka.App.user.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class qAppUserTests {
+class AppUserTests {
 
     @Resource
     private AppUserRepository userRepository;
@@ -25,7 +21,7 @@ class qAppUserTests {
         userRepository.save(user);
 
         Optional<AppUser> optuser2 = userRepository.findByEmail("johny@doe.com");
-        assertEquals(true,optuser2.isPresent());
+        assertTrue(optuser2.isPresent());
         AppUser user2 = optuser2.get();
         assertEquals("john", user2.getName());
         assertEquals("password", user2.getPassword());
