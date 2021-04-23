@@ -38,7 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/**", "/", "/users","/img/**","/login","/home_after_login").permitAll() //"/registration/**", "/", "/users","/img/**","/login"
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll()
-                .defaultSuccessUrl("/home_after_login", true);
+                .defaultSuccessUrl("/home_after_login", true)
+
+                .and()
+                .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().key("uniqueAndSecret");
     }
 
     @Override
