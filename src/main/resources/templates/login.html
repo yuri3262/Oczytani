@@ -12,7 +12,8 @@
 
 </head>
 <body>
-<form role="form" th:action="@{/login}" th:method="post" th:object="${user}">
+<form role="form" th:action="@{/login}" th:method="post" >
+
   <div class="container pt-4">
     <div class="card bg-light">
       <article class="card-body mx-auto" style="max-width: 400px; height:780px;" >
@@ -21,20 +22,23 @@
         <p class="divider-text">
           <span class="bg-light"></span>
         </p>
-
+        <img class="d-block mx-auto mb-4" th:src="@{img/nav_logo.png}" id="nav_logo" alt=":(">
+        <div th:if="${param.error}">
+          <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
         <form>
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
             </div>
-            <input type="email" class="form-control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{email}">
+            <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus/>
           </div> <!-- form-group// -->
 
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input type="password" class="form-control" id="password" placeholder="Create password" th:field="*{password}">
+            <input type="password" name="password" class="form-control" placeholder="Password" required />
           </div> <!-- form-group// -->
           <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> Sing In  </button>

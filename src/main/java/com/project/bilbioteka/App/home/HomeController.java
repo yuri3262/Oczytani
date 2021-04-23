@@ -17,11 +17,11 @@ public class HomeController {
     public String homepage(Model model) {
         return "home";
     }
-    // Login form
-    @RequestMapping("/login")
-    public String login(@ModelAttribute("user") RegistrationRequest registrationRequest,
-                        HttpServletRequest request,
-                        Errors errors) {
+
+    @GetMapping("/login")
+    public String viewLoginPage() {
+        // custom logic before showing login page...
+
         return "login";
     }
 
