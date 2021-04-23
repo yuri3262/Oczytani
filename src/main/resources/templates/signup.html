@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Spring Boot User Authentication</title>
+    <title>Registration</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="register.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 </head>
 <body>
-<form role="form" th:action="@{/registration}" th:method="post" th:object="${user}">
-    <label>Name</label>
-    <input type="text" id="name" name="name" th:field="*{name}">
-    <br>
+    <form role="form" th:action="@{/registration}" th:method="post" th:object="${user}">
+        <div class="container pt-4">
+            <div class="card bg-light">
+                <article class="card-body mx-auto" style="max-width: 400px; height:780px;" >
+                    <h4 class="card-title mt-3 text-center">Create Account</h4>
+                    <p class="text-center">Get started with your free account</p>
+                    <p class="divider-text">
+                        <span class="bg-light"></span>
+                    </p>
 
-    <label>Email</label>
-    <input type="text" id="email" name="email" th:field="*{email}">
-    <br>
+                    <!--<img class="d-block mx-auto mb-4" th:src="@{../static/img/book.png}" id="book_logo" alt=":(">-->
+                    <form>
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input type="text" class="form-control" id="name" placeholder="Name" aria-describedby="emailHelp" th:field="*{name}">
+                        </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input type="email" class="form-control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{email}">
+                        </div> <!-- form-group// -->
 
-    <label>Password</label>
-    <input type="password" id="password" name="password" th:field="*{password}">
-    <br>
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input type="password" class="form-control" id="password" placeholder="Create password" th:field="*{password}">
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                        </div> <!-- form-group// -->
+                        <p class="text-center">Have an account? <a href="/login">Log In</a> </p>
+                        <p class="text-center">Go to homepage <a href="/">Homepage</a> </p>
+                    </form>
+                </article>
+            </div> <!-- card.// -->
 
-    <input type="submit">
-</form>
+        </div>
+    </form>
+    <footer class="py-5 bg-dark fixed-bottom">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Biblioteka 2021</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 </body>
 </html>

@@ -28,7 +28,7 @@ public class RegistrationController {
 
     @GetMapping
     public String showRegistrationForm(WebRequest request, Model model) {
-        RegistrationRequest registrationRequest = new RegistrationRequest("name", "email@gmail.com", "pass");
+        RegistrationRequest registrationRequest = new RegistrationRequest("", "", "");
         model.addAttribute("user", registrationRequest);
         return "signup";
     }
