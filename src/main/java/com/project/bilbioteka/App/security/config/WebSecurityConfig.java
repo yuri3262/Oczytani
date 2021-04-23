@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/**", "/", "/users","/img/**","/login","/home_after_login").permitAll() //"/registration/**", "/", "/users","/img/**","/login"
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll()
-                .defaultSuccessUrl("/home_after_login", true);
+                .defaultSuccessUrl("/home_after_login", true).and().logout()
+                .logoutSuccessUrl("/");
     }
 
     @Override
@@ -54,51 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/auth/**").hasAnyAuthority("USER")
-//                .antMatchers("/login**").permitAll()
-//                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/register**").permitAll()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/auth/home", true)
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
-//                .addLogoutHandler(logoutHandler)
-//                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-//                .permitAll()
-//                .and()
-//                .csrf().disable();;
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("/registration/**", "/", "/users","/img/**").authenticated()
-//                .anyRequest().permitAll().and()
-//                .formLogin()
-//                .and()
-//                .logout()
-//                .logoutSuccessHandler(new LogoutSuccessHandler() {
-//                    @Override
-//                    public void onLogoutSuccess(HttpServletRequest request,
-//                                                HttpServletResponse response, Authentication authentication)
-//                            throws IOException, ServletException {
-//                        AppUser appUser = (AppUser) authentication.getPrincipal();
-//                        String username = appUser.getUsername();
-//
-//                        System.out.println("The user " + username + " has logged out.");
-//                        UrlPathHelper helper = new UrlPathHelper();
-//                        String context = helper.getContextPath(request);
-//
-//                        response.sendRedirect(request.getContextPath());
-//                    }
-//                })
-//                .permitAll();
-//    }
 
 
 
