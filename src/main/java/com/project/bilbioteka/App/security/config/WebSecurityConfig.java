@@ -43,7 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().deleteCookies("JSESSIONID")
                 .and()
-                .rememberMe().key("uniqueAndSecret");
+                .rememberMe()
+                .key("uniqueAndSecret")
+                .userDetailsService(userService);
     }
 
     @Override
