@@ -12,35 +12,31 @@ public class AppUserController {
     @Autowired
     private AppUserRepository userRepository;
 
+    @Autowired
+    private AppUserService userService;
+
     @GetMapping("/users")
     public List<AppUser> getAllUsers() {
-        List<AppUser> users = new ArrayList<>();
-        userRepository.findAll()
-                .forEach(users::add);
-
-        return users;
+        return userService.getAllUsers();
     }
 
     @GetMapping("/users/{id}")
     public AppUser getUser(@PathVariable String id) {
-        return userRepository.findById(Long.parseLong(id));
+        return userService.getUser(id);
     }
 
     @PostMapping("/users")
     public void addUser(@RequestBody AppUser user) {
-        userRepository.save(user);
+        userService.addUser(user);
     }
 
     @PutMapping("/users/{id}")
     public void updateUser(@RequestBody AppUser user, @PathVariable String id) {
-        AppUser updatedUser = userRepository.findById(Long.parseLong(id));
-        updatedUser.setUserName(user.getName());
-        updatedUser.setPassword(user.getPassword());
-        userRepository.save(updatedUser);
+        userService.updateUser(user, id);
     }
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable String id) {
-        userRepository.deleteById(Long.parseLong(id));
+        userService.deleteUser(id);
     }
 }
