@@ -1,0 +1,68 @@
+<!DOCTYPE>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Welcome!</title>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link d-inline" href="/">
+                    <img  th:src="@{img/nav_logo.png}" id="nav_logo" width="60%" alt=":("/>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-500 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+<!--                <a class="nav-link" href="">Logout</a>-->
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout" />
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>Welcome!</h1>
+    </div>
+</header>
+
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>About this page</h2>
+                <p class="lead">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet, lacus sit amet varius varius, felis est auctor ex, ac varius ipsum nisi eu eros. Nam at condimentum nisi. Ut sollicitudin nunc vitae sapien suscipit accumsan. Donec pellentesque sagittis urna quis venenatis. Integer orci nisi, ultricies ac nisi in, rhoncus lacinia neque. Etiam accumsan tellus sed erat bibendum gravida. Pellentesque id luctus arcu. Cras vitae turpis velit. Ut varius scelerisque leo ut tincidunt. Vivamus porttitor velit nibh, sed elementum sem euismod vel. Nam auctor, est ut posuere bibendum, orci risus egestas lacus, eu tincidunt turpis urna sed lectus. Suspendisse varius libero nulla, nec semper eros auctor nec.
+                    Pellentesque dapibus imperdiet lorem nec venenatis. Aenean nec cursus turpis. Donec euismod varius tempor. Praesent sit amet urna sit amet quam pretium fermentum ut sit amet nulla. Duis sit amet velit eu nisl tincidunt iaculis. Fusce pellentesque laoreet rhoncus. Nulla viverra fermentum lorem, ut tempor sem rutrum non. Etiam erat sapien, mollis et tortor eleifend, finibus porta lorem. Vestibulum euismod volutpat ipsum. Duis at leo augue. Vivamus est purus, congue gravida viverra eget, commodo sed lacus. Suspendisse vitae risus vitae ante vulputate placerat. Phasellus maximus, velit iaculis commodo tempus, libero nunc pretium lacus, a porta sem arcu quis eros.
+                    Nam sit amet aliquam velit. Quisque sed odio purus. Aliquam suscipit iaculis dui, in sodales magna semper dictum. Donec gravida, tellus quis sodales vehicula, sem quam egestas nisl, quis elementum lorem tellus et odio. Maecenas a rutrum lectus. Nulla nibh nibh, suscipit sit amet lacinia vel, fringilla a risus. Praesent a est scelerisque, cursus elit id, bibendum odio. Duis pharetra, magna sit amet mollis auctor, dui mauris rutrum eros, non elementum libero turpis vel neque. Maecenas suscipit elit a tortor sollicitudin suscipit. Nullam a nulla ultrices, euismod urna non, lacinia ex. Cras rutrum sem.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Biblioteka 2021</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
