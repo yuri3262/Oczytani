@@ -39,7 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll()
                 .defaultSuccessUrl("/home_after_login", true).and().logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+
+                .and()
+                .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe()
+                .key("uniqueAndSecret")
+                .userDetailsService(userService);
     }
 
     @Override

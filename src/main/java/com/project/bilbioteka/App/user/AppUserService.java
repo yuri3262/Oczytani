@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,8 +29,7 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
     }
 
-    public String signUpUser(AppUser user)
-    {
+    public String signUpUser(AppUser user) {
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExists) {
             throw new IllegalStateException("email already taken");
@@ -55,8 +56,8 @@ public class AppUserService implements UserDetailsService {
 
         return token;
     }
-    public AppUser findAppUserByEmail(String email)
-    {
+
+    public AppUser findAppUserByEmail(String email) {
         boolean userExists = userRepository.findByEmail(email).isPresent();
         if(!userExists) {
             throw new IllegalStateException("email not shown in database");
@@ -64,13 +65,32 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email).get();
     }
 
-    public List<AppUser> findAllUsers()
-    {
+    public List<AppUser> getAllUsers() {
         List<AppUser> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
 
         return users;
     }
+
+    public AppUser getUser(String id) {
+        return userRepository.findById(Long.parseLong(id));
+    }
+
+    public void addUser(AppUser user) {
+        userRepository.save(user);
+    }
+
+    public void updateUser(AppUser user, String id) {
+        AppUser updatedUser = userRepository.findById(Long.parseLong(id));
+        updatedUser.setUserName(user.getName());
+        updatedUser.setPassword(user.getPassword());
+        userRepository.save(updatedUser);
+    }
+
+    public void deleteUser(String id) {
+        userRepository.deleteById(Long.parseLong(id));
+    }
+
     public int enableUser(String email) {
         return userRepository.enableUser(email);
     }
