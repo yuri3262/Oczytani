@@ -36,8 +36,11 @@ jobs:
         publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
     - name: Chromedriver
+      if: ${{ github.ref == 'refs/heads/main' }}
       uses: nanasess/setup-chromedriver@master
-    - run: |
+    - name: Chromedriver export
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: |
         export DISPLAY=:99
         chromedriver --url-base=/wd/hub &
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
