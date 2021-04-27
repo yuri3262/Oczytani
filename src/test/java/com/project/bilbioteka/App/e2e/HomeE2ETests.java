@@ -17,7 +17,7 @@ class HomeE2ETests {
     private URL driverURL;
     {
         try {
-            driverURL = new URL("http://localhost:9515");
+            driverURL = new URL("http://localhost:9515/wd/hub");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
