@@ -1,15 +1,10 @@
-package com.project.bilbioteka.App.home;
+package com.project.bilbioteka.App.unit;
 
-import com.project.bilbioteka.App.registration.RegistrationRequest;
-import com.project.bilbioteka.App.registration.RegistrationService;
+import com.project.bilbioteka.App.home.HomeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.springframework.ui.Model;
 
 @SpringBootTest
 class HomeControllerTests {

@@ -1,5 +1,8 @@
-package com.project.bilbioteka.App.user;
+package com.project.bilbioteka.App.unit;
 
+import com.project.bilbioteka.App.user.AppUser;
+import com.project.bilbioteka.App.user.AppUserRepository;
+import com.project.bilbioteka.App.user.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
