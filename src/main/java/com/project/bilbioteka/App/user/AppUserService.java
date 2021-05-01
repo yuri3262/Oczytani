@@ -8,8 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,6 +64,14 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email).get();
     }
 
+    public AppUser findAppUserByName(String name) {
+        boolean userExists = userRepository.findByName(name).isPresent();
+        if(!userExists) {
+            throw new IllegalStateException("name not shown in database");
+        }
+        return userRepository.findByName(name).get();
+    }
+
     public List<AppUser> getAllUsers() {
         List<AppUser> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
@@ -94,4 +101,14 @@ public class AppUserService implements UserDetailsService {
     public int enableUser(String email) {
         return userRepository.enableUser(email);
     }
+
+    public boolean checkIfValidOldPassword(final AppUser user, final String oldPassword) {
+        return bCryptPasswordEncoder.matches(oldPassword, user.getPassword());
+    }
+
+    public void changeUserPassword(final AppUser user, final String password) {
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(user);
+    }
+
 }
