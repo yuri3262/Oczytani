@@ -26,6 +26,9 @@
         <div th:if="${param.error}">
           <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
         </div>
+        <div th:if="${message != null}" class="m-3">
+          <p class="text-danger">[[${message}]]</p>
+        </div>
         <form>
           <div class="form-group input-group">
             <div class="input-group-prepend">
