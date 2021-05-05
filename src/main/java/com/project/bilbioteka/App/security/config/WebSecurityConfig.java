@@ -35,10 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/registration/**", "/", "/users","/img/**","/login").permitAll()
+                .antMatchers("/registration/**", "/","/*.css", "/users","/img/**","/login").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll()
-                .defaultSuccessUrl("/home_after_login", true).and().logout()
+                .defaultSuccessUrl("/", true).and().logout()
                 .logoutSuccessUrl("/")
 
                 .and()
