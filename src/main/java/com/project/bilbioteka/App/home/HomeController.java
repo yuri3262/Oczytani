@@ -24,9 +24,4 @@ public class HomeController {
 
         return "login";
     }
-
-    @RequestMapping("/home_after_login")
-    public String afterLogin() {
-        return "home_after_login";
-    }
 }

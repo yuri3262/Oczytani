@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/**", "/", "/users","/img/**","/login").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").usernameParameter("email")
                 .permitAll()
-                .defaultSuccessUrl("/home_after_login", true).and().logout()
+                .defaultSuccessUrl("/", true).and().logout()
                 .logoutSuccessUrl("/")
 
                 .and()
