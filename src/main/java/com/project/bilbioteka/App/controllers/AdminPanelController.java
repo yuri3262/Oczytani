@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -28,6 +31,20 @@ public class AdminPanelController {
 
         model.addAttribute("users", users);
         return "admin_panel";
+    }
+
+
+    @GetMapping("/admin/edit/{id}")
+    public String updateUserForm(@PathVariable String id, Model model) {
+        AppUser user = userService.getUser(id);
+        model.addAttribute("user", user);
+        return "update_user";
+    }
+
+    @PostMapping("/admin/update/{id}")
+    public String updateUser(@ModelAttribute("user") AppUser user, @PathVariable String id) {
+        userService.updateUser(user, id);
+        return "redirect:/admin/users";
     }
 
 }
