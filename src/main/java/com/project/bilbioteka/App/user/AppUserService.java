@@ -90,7 +90,11 @@ public class AppUserService implements UserDetailsService {
     public void updateUser(AppUser user, String id) {
         AppUser updatedUser = userRepository.findById(Long.parseLong(id));
         updatedUser.setUserName(user.getName());
-        updatedUser.setPassword(user.getPassword());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setId(user.getId());
+        updatedUser.setLocked(user.getLocked());
+        updatedUser.setEnabled(user.getEnabled());
+        updatedUser.setRole(user.getRole());
         userRepository.save(updatedUser);
     }
 
