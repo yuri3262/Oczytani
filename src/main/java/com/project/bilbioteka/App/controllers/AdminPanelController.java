@@ -44,7 +44,7 @@ public class AdminPanelController {
     @PostMapping("/admin/update/{id}")
     public String updateUser(@ModelAttribute("user") AppUser user, @PathVariable String id) {
         userService.updateUser(user, id);
-        return "redirect:/";
+        return "redirect:/admin/users";
     }
 
 }

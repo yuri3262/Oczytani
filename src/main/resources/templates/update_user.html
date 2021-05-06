@@ -51,6 +51,7 @@
             <th scope="col">Enabled</th>
             <th scope="col">Locked</th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -70,8 +71,8 @@
             </td>
             <td>
               <select th:field="*{enabled}">
-                <option th:value="'True'" th:text="True"></option>
-                <option th:value="'False'" th:text="False"></option>
+                <option th:value="'true'" th:text="true"></option>
+                <option th:value="'false'" th:text="false"></option>
               </select>
 <!--              <input type="text" th:field="*{enabled}" id="enabled">-->
             </td>
@@ -82,9 +83,13 @@
               </select>
 <!--              <input type="text" th:field="*{locked}" id="locked">-->
             </td>
-            <td><input type="submit" value="Update User"></td>
+            <td><input type="submit" value="Update User" class="btn btn-primary btn-block"></td>
           </form>
-
+          <td>
+            <a href="/admin/users">
+              <button type="text" class="btn btn-primary btn-block"> Back  </button>
+            </a>
+          </td>
           </tbody>
         </table>
       </div>
@@ -93,7 +98,7 @@
 </section>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5 bg-dark fixed-bottom">
   <div class="container">
     <p class="m-0 text-center text-white">Copyright &copy; Biblioteka 2021</p>
   </div>
