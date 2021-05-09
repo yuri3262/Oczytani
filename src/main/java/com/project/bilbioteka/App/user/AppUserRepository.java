@@ -14,6 +14,7 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     AppUser findById(long id);
 
     Optional<AppUser> findByEmail(String email);
+    Optional<AppUser> findByName(String name);
 
     @Transactional
     @Modifying

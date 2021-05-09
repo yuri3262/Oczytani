@@ -22,9 +22,14 @@
         <p class="divider-text">
           <span class="bg-light"></span>
         </p>
-        <img class="d-block mx-auto mb-4" th:src="@{img/nav_logo.png}" id="nav_logo" alt=":(">
+          <a class="nav-link d-inline" href="/">
+            <img class="d-block mx-auto mb-4" th:src="@{img/nav_logo_black.png}" id="nav_logo" alt=":(">
+          </a>
         <div th:if="${param.error}">
           <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+        <div th:if="${message != null}" class="m-3">
+          <p class="text-danger">[[${message}]]</p>
         </div>
         <form>
           <div class="form-group input-group">
@@ -41,7 +46,9 @@
             <input type="password" name="password" class="form-control" placeholder="Password" required />
           </div> <!-- form-group// -->
           <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block"> Sing In  </button>
+            <input style="display: inline-block;" type="checkbox" id="remember" name="remember-me">
+            <p style="display: inline-block;">Remember me</p>
+            <button type="submit" class="btn btn-primary btn-block"> Sign In  </button>
           </div> <!-- form-group// -->
           <p class="text-center">Don't have an account? <a href="/registration">Sign Up</a> </p>
           <p class="text-center">Go to homepage <a href="/">Homepage</a> </p>
