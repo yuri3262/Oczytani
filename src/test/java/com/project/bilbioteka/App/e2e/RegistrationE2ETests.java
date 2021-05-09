@@ -61,7 +61,8 @@ class RegistrationE2ETests {
         WebElement submitButton = driver.findElement(By.cssSelector("button"));
 
         submitButton.click();
-        //error
+        String pageHeader = driver.findElement(By.tagName("h1")).getText();
+        assertEquals("Whitelabel Error Page", pageHeader);
     }
 
     @Test
@@ -79,8 +80,27 @@ class RegistrationE2ETests {
         passwordInput.sendKeys("testPassword");
         emailInput.sendKeys("testmailSelenium@gmail.com");
         submitButton.click();
-        //error
+
+
     }
+
+    @Test
+    public void loginWithRegisteredData()
+    {
+        driver.get(testURL + "/login");
+        assertEquals("Sing In", driver.getTitle());
+
+        WebElement emailInput = driver.findElement(By.name("email"));
+        WebElement passwordInput = driver.findElement(By.name("password"));
+        WebElement submitButton = driver.findElement(By.cssSelector("button"));
+
+        passwordInput.sendKeys("testPassword");
+        emailInput.sendKeys("testmailSelenium@gmail.com");
+        submitButton.click();
+
+
+    }
+
 
 }
 
