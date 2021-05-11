@@ -12,10 +12,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     AppUser findById(long id);
-
+    AppUser findUserByEmail(String email);
     Optional<AppUser> findByEmail(String email);
     Optional<AppUser> findByName(String name);
 
+    AppUser findByResetPasswordToken(String token);
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a " +

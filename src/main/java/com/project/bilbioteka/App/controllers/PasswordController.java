@@ -1,4 +1,4 @@
-package com.project.bilbioteka.App.security;
+package com.project.bilbioteka.App.controllers;
 
 import com.project.bilbioteka.App.user.AppUser;
 import com.project.bilbioteka.App.user.AppUserService;

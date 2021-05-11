@@ -1,4 +1,4 @@
-package com.project.bilbioteka.App.security;
+package com.project.bilbioteka.App.controllers;
 import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
