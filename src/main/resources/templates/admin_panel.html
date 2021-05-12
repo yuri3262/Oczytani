@@ -51,6 +51,7 @@
                         <th scope="col">Enabled</th>
                         <th scope="col">Locked</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,7 +65,12 @@
                         <td><span th:text="${user.locked}"></span></td>
                         <td>
                             <form action="#"  th:action="@{/admin/edit/{id}(id=${user.id})}"  th:object="${user}"  method="get">
-                                <input type="submit" class="btn btn-primary btn-block" value="Edit">
+                                <input type="submit" class="btn btn-primary btn-block" value="EDIT">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#"  th:action="@{/admin/delete/{id}(id=${user.id})}"  th:object="${user}"  method="get">
+                                <input type="submit" class="btn btn-primary btn-block" value="DELETE">
                             </form>
                         </td>
                     </tr>
