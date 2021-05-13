@@ -1,6 +1,7 @@
 <!DOCTYPE>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +48,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Role</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Role</th>
             <th scope="col">Enabled</th>
             <th scope="col">Locked</th>
             <th scope="col"></th>
@@ -64,8 +65,8 @@
 
               <select th:field="*{role}">
                 <option th:value="'USER'" th:text="USER"></option>
-                <option th:value="'WORKER'" th:text="WORKER"></option>
-                <option th:value="'ADMIN'" th:text="ADMIN"></option>
+                <option sec:authorize="hasAuthority('ADMIN')" th:value="'WORKER'" th:text="WORKER"></option>
+                <option sec:authorize="hasAuthority('ADMIN')" th:value="'ADMIN'" th:text="ADMIN"></option>
               </select>
 
             </td>
