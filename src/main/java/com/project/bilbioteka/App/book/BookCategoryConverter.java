@@ -12,7 +12,7 @@ public class BookCategoryConverter implements Converter<String, BookCategory> {
 
     @Override
     public BookCategory convert(String id) {
-        System.out.println("converting" + id + ".");
+//        System.out.println("converting" + id + ".");
 
         List<String> allCategoriesNames = BookCategoriesENUM.getBookCategoriesArray();
         List<BookCategory> allCategories = new ArrayList<>();

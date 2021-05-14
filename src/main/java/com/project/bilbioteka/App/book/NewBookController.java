@@ -46,7 +46,7 @@ public class NewBookController {
     public String newBookSubmit(@ModelAttribute("book") Book book, Model model)
     {
         model.addAttribute("book",book);
-        System.out.println(book.toString());
+//        System.out.println(book.toString());
         model.addAttribute(book);
 
 
