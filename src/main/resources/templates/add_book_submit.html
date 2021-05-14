@@ -1,0 +1,100 @@
+<!DOCTYPE>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Admin panel</title>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link d-inline" href="/">
+                    <img th:src="@{../../img/nav_logo.png}" id="nav_logo" width="60%" alt=":("/>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-500 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" />
+            </form>
+        </ul>
+    </div>
+</nav>
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>Add new book</h1>
+    </div>
+</header>
+
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 m-auto">
+                <h2>Added book:</h2>
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>Title</th> </br>
+                        <td><span  th:text="${book.title}"> </span></td>
+                    </tr>
+                    <tr>
+                        <th >Author</th>
+                        <td><span  th:text="${book.author}" ></span> </td>
+                    </tr>
+                    <tr>
+                        <th >Publisher</th>
+                        <td><span  th:text="${book.publisher}"></span> </td>
+                    </tr>
+                    <tr>
+                        <th >Amount of pages</th>
+                        <td><span th:text="${book.numberOfPages}"></span> </td>
+                    </tr>
+                    <tr>
+                        <th>Categories</th>
+                        <td>
+                            <li th:each="cat : ${book.category}">
+                                <span th:text="${cat.name}"></span>
+                            </li>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of publication</th>
+                        <td><span  th:text="${book.dateOfPublication}"> </span></td>
+                    </tr>
+                    <tr>
+                        <th>Is available</th>
+                        <td><span  th:text="${book.isAvailable}"> </span></td>
+                    </tr>
+
+                </table>
+
+                <div class="float-end me-2">
+                    <a class="btn btn-primary" href="/" role="button">Go back</a>
+                    <a class="btn btn-primary" href="/newBook" role="button">Add another book</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark fixed-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Biblioteka 2021</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
