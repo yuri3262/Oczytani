@@ -4,6 +4,9 @@ import com.project.bilbioteka.App.user.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -30,8 +33,9 @@ public class ConfirmationToken {
 
     private LocalDateTime confirmedAt;
 
-    @OneToOne(targetEntity = AppUser.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = AppUser.class, fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(nullable = false, name = "user_id")
+    @OnDelete(action= OnDeleteAction.CASCADE)
 
     private AppUser user;
 
