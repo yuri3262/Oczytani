@@ -48,10 +48,10 @@ public class AdminPanelController {
     }
 
     @PostMapping("/admin/delete/{id}")
-    public String deleteUser(@ModelAttribute("user") AppUser user, @PathVariable String id) {
-        System.out.println("-----PASSED------");
-        userService.deleteUser(id);
-        System.out.println("-----PASSED2------");
+    public String deleteUser(@ModelAttribute("user") AppUser user, @PathVariable Long id) {
+        if(userService.loadUserById(id) != null){
+            userService.deleteUserById(id);
+        }
         return "redirect:/admin/users";
     }
 

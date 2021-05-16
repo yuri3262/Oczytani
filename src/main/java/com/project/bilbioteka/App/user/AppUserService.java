@@ -28,6 +28,10 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
     }
 
+    public UserDetails loadUserById(Long id) throws UsernameNotFoundException{
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("user with id "+ id + " not found"));
+    }
+
     public String signUpUser(AppUser user) {
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExists) {
@@ -114,5 +118,11 @@ public class AppUserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
     }
+
+    public int deleteUserById(Long id){
+        confirmationTokenService.deleteConfirmationTokenByUserId(id);
+        return userRepository.deleteAppUser(id);
+    }
+
 
 }
