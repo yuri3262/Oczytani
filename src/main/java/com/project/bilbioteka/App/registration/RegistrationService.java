@@ -49,7 +49,7 @@ public class RegistrationService {
                     UserRole.USER
                 )
         );
-        String link = "http://localhost:8080/registration/confirm?token=" + token;
+        String link = "https://oczytani.azurewebsites.net/registration/confirm?token=" + token;
         emailSender.send(
                 request.getEmail(),
                 buildEmail(request.getName(), link));
