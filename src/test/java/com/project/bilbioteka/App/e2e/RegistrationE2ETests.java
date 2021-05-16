@@ -88,7 +88,7 @@ class RegistrationE2ETests {
     public void loginWithRegisteredData()
     {
         driver.get(testURL + "/login");
-        assertEquals("Sing In", driver.getTitle());
+        assertEquals("Sign In", driver.getTitle());
 
         WebElement emailInput = driver.findElement(By.name("email"));
         WebElement passwordInput = driver.findElement(By.name("password"));
@@ -97,8 +97,6 @@ class RegistrationE2ETests {
         passwordInput.sendKeys("testPassword");
         emailInput.sendKeys("testmailSelenium@gmail.com");
         submitButton.click();
-
-
     }
 
 
