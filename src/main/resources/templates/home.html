@@ -45,6 +45,9 @@
             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                 <a class="nav-link" href="/admin/users">users</a>
             </li>
+            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                <a class="nav-link" href="/books">books</a>
+            </li>
             <li sec:authorize="isAuthenticated()" class="nav-item">
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
