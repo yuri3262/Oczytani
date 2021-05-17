@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     AppUser findById(long id);
     AppUser findUserByEmail(String email);
@@ -22,4 +22,9 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     @Query("UPDATE AppUser a " +
             "SET a.enabled = 1 WHERE a.email = ?1")
     int enableUser(String email);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("DELETE FROM AppUser a WHERE a.id = ?1")
+    int deleteAppUser(Long id);
 }

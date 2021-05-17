@@ -1,5 +1,7 @@
-package com.project.bilbioteka.App.registration;
+package com.project.bilbioteka.App.unit;
 
+import com.project.bilbioteka.App.registration.RegistrationRequest;
+import com.project.bilbioteka.App.registration.RegistrationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

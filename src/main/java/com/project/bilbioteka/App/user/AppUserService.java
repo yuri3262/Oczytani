@@ -30,6 +30,10 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
     }
 
+    public UserDetails loadUserById(Long id) throws UsernameNotFoundException{
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("user with id "+ id + " not found"));
+    }
+
     public String signUpUser(AppUser user) {
         boolean userExists = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExists) {
@@ -117,6 +121,7 @@ public class AppUserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+
     public void updateResetPasswordToken(String token, String email){
         AppUser user = userRepository.findUserByEmail(email);
         if (userRepository.findByEmail(email).isPresent()) {
@@ -128,4 +133,10 @@ public class AppUserService implements UserDetailsService {
     public AppUser getByResetPasswordToken(String token) {
         return userRepository.findByResetPasswordToken(token);
     }
+
+    public int deleteUserById(Long id){
+        confirmationTokenService.deleteConfirmationTokenByUserId(id);
+        return userRepository.deleteAppUser(id);
+    }
+
 }
