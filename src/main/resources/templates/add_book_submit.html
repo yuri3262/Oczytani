@@ -33,55 +33,56 @@
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>User management panel</h1>
+        <h1>Add new book</h1>
     </div>
 </header>
 
 <section id="about">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <table class="table table-striped">
-                    <thead>
+            <div class="col-lg-8 m-auto">
+                <h2>Added book:</h2>
+                <table class="table table-striped table-hover">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Enabled</th>
-                        <th scope="col">Locked</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th>Title</th> </br>
+                        <td><span  th:text="${book.title}"> </span></td>
                     </tr>
-                    </thead>
-                    <tbody>
+                    <tr>
+                        <th >Author</th>
+                        <td><span  th:text="${book.author}" ></span> </td>
+                    </tr>
+                    <tr>
+                        <th >Publisher</th>
+                        <td><span  th:text="${book.publisher}"></span> </td>
+                    </tr>
+                    <tr>
+                        <th >Amount of pages</th>
+                        <td><span th:text="${book.numberOfPages}"></span> </td>
+                    </tr>
+                    <tr>
+                        <th>Categories</th>
+                        <td>
+                            <li th:each="cat : ${book.category}">
+                                <span th:text="${cat.name}"></span>
+                            </li>
 
-                    <tr th:each="user : ${users}">
-                        <th scope="row"><span th:text="${user.id}"></span></th>
-                        <td><span th:text="${user.name}"></span></td>
-                        <td><span th:text="${user.email}"></span></td>
-                        <td><span th:text="${user.role}"></span></td>
-                        <td><span th:text="${user.enabled}"></span></td>
-                        <td><span th:text="${user.locked}"></span></td>
-                        <td>
-                            <form action="#"  th:action="@{/admin/edit/{id}(id=${user.id})}"  th:object="${user}"  method="get">
-                                <input type="submit" class="btn btn-primary btn-block" value="EDIT">
-                            </form>
-                        </td>
-                        <td>
-                            <form action="#"  th:action="@{/admin/delete/{id}(id=${user.id})}"  th:object="${user}"  method="post">
-                                <input type="submit" class="btn btn-primary btn-block" value="DELETE">
-                            </form>
                         </td>
                     </tr>
+                    <tr>
+                        <th>Date of publication</th>
+                        <td><span  th:text="${book.dateOfPublication}"> </span></td>
+                    </tr>
+                    <tr>
+                        <th>Is available</th>
+                        <td><span  th:text="${book.isAvailable}"> </span></td>
+                    </tr>
 
-                    </tbody>
                 </table>
 
-                <p th:if="${users.empty}" class="d-flex justify-content-center">
-                    No users available.
-                </p>
-
+                <div class="float-end me-2">
+                    <a class="btn btn-primary" href="/" role="button">Go back</a>
+                    <a class="btn btn-primary" href="/newBook" role="button">Add another book</a>
+                </div>
             </div>
         </div>
     </div>

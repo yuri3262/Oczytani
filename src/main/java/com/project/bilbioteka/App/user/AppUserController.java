@@ -2,21 +2,20 @@ package com.project.bilbioteka.App.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class AppUserController {
     @Autowired
     private MessageSource messages;
-
     @Autowired
     private AppUserRepository userRepository;
 
     @Autowired
     private AppUserService userService;
-
     @GetMapping("/users")
     public List<AppUser> getAllUsers() {
         return userService.getAllUsers();
@@ -41,7 +40,6 @@ public class AppUserController {
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }
-
 
 
 

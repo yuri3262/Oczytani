@@ -47,4 +47,15 @@ public class AdminPanelController {
         return "redirect:/admin/users";
     }
 
+    @PostMapping("/admin/delete/{id}")
+    public String deleteUser(@ModelAttribute("user") AppUser user, @PathVariable Long id) {
+        if(userService.loadUserById(id) != null){
+            userService.deleteUserById(id);
+        }
+        return "redirect:/admin/users";
+    }
+
+
+
+
 }
