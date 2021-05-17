@@ -69,7 +69,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="#"  th:action="@{/admin/delete/{id}(id=${user.id})}"  th:object="${user}"  method="get">
+                            <form action="#"  th:action="@{/admin/delete/{id}(id=${user.id})}"  th:object="${user}"  method="post">
                                 <input type="submit" class="btn btn-primary btn-block" value="DELETE">
                             </form>
                         </td>
