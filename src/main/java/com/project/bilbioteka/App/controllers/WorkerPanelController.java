@@ -1,5 +1,7 @@
 package com.project.bilbioteka.App.controllers;
 
+import com.project.bilbioteka.App.book.Book;
+import com.project.bilbioteka.App.book.BookService;
 import com.project.bilbioteka.App.user.AppUser;
 import com.project.bilbioteka.App.user.AppUserService;
 import com.project.bilbioteka.App.user.UserRole;
@@ -20,6 +22,9 @@ public class WorkerPanelController {
     @Autowired
     private AppUserService userService;
 
+    @Autowired
+    private BookService bookService;
+
     @GetMapping("/worker/users")
     public String users(Model model) {
         List<AppUser> users = userService.getAllUsers();
@@ -34,17 +39,11 @@ public class WorkerPanelController {
         return "manage_users_panel";
     }
 
-    @GetMapping("/worker/books")
+    @GetMapping("/books")
     public String books(Model model) {
-        /*List<AppUser> books = userService.getAllUsers();
+        List<Book> books = bookService.getAllBooks();
 
-        // do not display admin and worker users
-        for(int i = 0; i < users.size(); i++) {
-            if(users.get(i).getRole() == UserRole.ADMIN || users.get(i).getRole() == UserRole.WORKER)
-                users.remove(i);
-        }
-
-        model.addAttribute("users", users);*/
+        model.addAttribute("books", books);
         return "manage_books_panel";
     }
 
