@@ -1,13 +1,14 @@
 <!DOCTYPE>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Admin panel</title>
+    <title>User management panel</title>
 </head>
 <body>
 
@@ -17,23 +18,61 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link d-inline" href="/">
-                    <img th:src="@{../../img/nav_logo.png}" id="nav_logo" width="60%" alt=":("/>
+                    <img  th:src="@{../../img/nav_logo.png}" id="nav_logo" width="60%" alt=":("/>
                 </a>
             </li>
         </ul>
     </div>
-    <div class="navbar-collapse collapse w-500 order-3 dual-collapse2">
+    <div class="navbar-collapse collapse w-500 pe-2 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" />
-            </form>
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
+                <a class="nav-link" href="/registration">SignUp</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
+                <a class="nav-link" href="/login">LogIn</a>
+            </li>
+
+            <li sec:authorize="hasAuthority('USER')" class="nav-item">
+                <a class="nav-link" href="/">button user</a>
+            </li>
+            <li sec:authorize="hasAuthority('WORKER')" class="nav-item">
+                <a class="nav-link" href="/worker/users">users</a>
+            </li>
+            <li sec:authorize="hasAuthority('WORKER')" class="nav-item">
+                <a class="nav-link" href="/books">books</a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                <a class="nav-link" href="/admin/users">users</a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                <a class="nav-link" href="/books">books</a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span sec:authentication="name"> username </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li>
+                                    <form  th:action="@{/logout}" method="post">
+                                        <input class="dropdown-item" type="submit" value="Logout" />
+                                    </form>
+                                </li>
+                                <li><a class="dropdown-item" href="user/updatePassword">Update password</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Admin panel</h1>
+        <h1>User management panel</h1>
     </div>
 </header>
 

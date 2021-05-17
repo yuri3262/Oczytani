@@ -72,63 +72,52 @@
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Add new book</h1>
+        <h1>Book management panel</h1>
     </div>
 </header>
 
 <section id="about">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 m-auto">
-
-                <form action="#"  th:action="@{/newBook}" th:object="${book}" method="post">
-                    <table class="table table-striped">
-                        <tr>
-                            <th  >Title</th> </br>
-                            <td><input class="form-control" placeholder="-" type="text" th:value="${book.title}" name="title" required> </td>
-                        </tr>
-                        <tr>
-                            <th >Author</th>
-                            <td><input class="form-control" placeholder="-" type="text" th:value="${book.author}" name="author" required> </td>
-                        </tr>
-                        <tr>
-                            <th >Publisher</th>
-                            <td><input class="form-control" placeholder="-" type="text" th:value="${book.publisher}" name="publisher" required> </td>
-                        </tr>
-                        <tr>
-                            <th >Amount of pages</th>
-                            <td><input type="number" th:value="${book.numberOfPages}" name="numberOfPages" required> </td>
-                        </tr>
-                        <tr>
-                            <th>Categories</th>
-                            <td>
-                                <li class="list-group-item" th:each="cat : ${allCategories}">
-                                    <div class="ui_checkbox">
-                                        <input type="checkbox" th:value="${cat.id}" th:field="${book.category}">
-                                        <label th:text="${cat.name}"></label>
-                                    </div>
-                                </li>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Date of publication</th>
-                            <td><input type="date" th:value="${book.dateOfPublication}" name="dateOfPublication" required> </td>
-                        </tr>
-                        <tr>
-                            <th>Is available</th>
-                            <td>
-                                <input type="checkbox" th:field="*{isAvailable}" value="true" name="isAvailable">
-                            </td>
-                        </tr>
-
-
-                    </table>
-                    <div class="float-end pe-2">
-                        <a class="btn btn-primary" href="/books" role="button">Go back</a>
-                        <input type="submit" value="Add book" class="btn btn-primary btn-block">
+            <div class="col-lg-8 mx-auto">
+                <table class="table table-striped">
+                    <div class="d-flex flex-row-reverse">
+                        <input type="button" class="btn btn-success p-2" onclick="location.href='/newBook';" value="Add book" />
                     </div>
-                </form>
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Publisher</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">Publication</th>
+                        <th scope="col">Available</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="book : ${books}">
+                        <th scope="row"><span th:text="${book.id}"></span></th>
+                        <td><span th:text="${book.title}"></span></td>
+                        <td><span th:text="${book.author}"></span></td>
+                        <td><span th:text="${book.publisher}"></span></td>
+                        <td><span th:text="${book.category}"></span></td>
+                        <td><span th:text="${book.numberOfPages}"></span></td>
+                        <td><span th:text="${book.dateOfPublication}"></span></td>
+                        <td><span th:text="${book.isAvailable}"></span></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <p th:if="${books.empty}" class="d-flex justify-content-center">
+                    No books available.
+                </p>
+
             </div>
         </div>
     </div>
