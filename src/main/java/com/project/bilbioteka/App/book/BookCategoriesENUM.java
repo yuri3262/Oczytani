@@ -1,43 +1,32 @@
 package com.project.bilbioteka.App.book;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum BookCategoriesENUM {
-    CAT1("ACTION"),
-    CAT2("ADVENTURE"),
-    CAT3("CRIMINAL");
-//    CAT4("EDUCATION"),
-//    CAT5("HISTORY"),
-//    CAT6("HORROR"),
-//    CAT7("POETRY"),
-//    CAT8("ROMANCE"),
-//    CAT9("SCI-FI"),
-//    CAT10("THRILLER");
+enum BookCategoriesENUM {
+    ACTION,
+    ADVENTURE,
+    CRIMINAL,
+    EDUCATION,
+    HISTORY,
+    HORROR,
+    POETRY,
+    ROMANCE,
+    SCI_FI,
+    THRILLER;
 
 
-
-    private static final List<String> bookCategoriesArray;
-    public final String label;
-
-    private BookCategoriesENUM(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
-    }
+    private static final List<BookCategoriesENUM> bookCategoriesArray;
 
     static {
         bookCategoriesArray = new ArrayList<>();
-        for(BookCategoriesENUM x : BookCategoriesENUM.values())
-        {
-            bookCategoriesArray.add(x.label);
-        }
+        bookCategoriesArray.addAll(Arrays.asList(BookCategoriesENUM.values()));
     }
 
-    public static List<String> getBookCategoriesArray() {
+    public static List<BookCategoriesENUM> getBookCategoriesArray() {
         return Collections.unmodifiableList(bookCategoriesArray);
     }
+
 }
