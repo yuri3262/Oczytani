@@ -59,6 +59,11 @@
                         <td><span th:text="${book.numberOfPages}"></span></td>
                         <td><span th:text="${book.dateOfPublication}"></span></td>
                         <td><span th:text="${book.isAvailable}"></span></td>
+                        <td>
+                            <form action="#"  th:action="@{/books/delete/{id}(id=${book.id})}"  th:object="${book}"  method="post">
+                                <input type="submit" class="btn btn-primary btn-block" value="DELETE">
+                            </form>
+                        </td>
                     </tr>
 
                     </tbody>
