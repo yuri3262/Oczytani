@@ -22,7 +22,7 @@ class AdminE2ETests {
     private URL driverURL;
     {
         try {
-            driverURL = new URL("http://localhost:4444/wd/hub"); ///wd/hub
+            driverURL = new URL("http://localhost:9515/wd/hub"); ///wd/hub
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
