@@ -2,6 +2,8 @@ package com.project.bilbioteka.App.book;
 
 import com.project.bilbioteka.App.user.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,4 +30,6 @@ public class BookService {
 
         return books;
     }
+
+    public void deleteBookById(Long id) { bookRepository.deleteById(id);}
 }

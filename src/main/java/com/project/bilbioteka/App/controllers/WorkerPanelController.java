@@ -47,4 +47,10 @@ public class WorkerPanelController {
         return "manage_books_panel";
     }
 
+    @PostMapping("/books/delete/{id}")
+    public String deleteBook(@PathVariable Long id)
+    {
+        bookService.deleteBookById(id);
+        return "redirect:/books";
+    }
 }
