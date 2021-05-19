@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  maven-run:
+    image: maven:3.3-jdk-8
+    command: mvn spring-boot:run -Dmaven.test.skip=true
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/usr/src/mymaven
+    working_dir: /usr/src/mymaven
+  chromewebdriver:
+    image: selenium/standalone-chrome 
+    network_mode: host
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - 4444:4444
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '1'
+          memory: 512M
