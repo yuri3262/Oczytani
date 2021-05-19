@@ -32,7 +32,7 @@ public class Book {
     private Boolean isAvailable;
 
     @ManyToOne( fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "app_user_id")
+    @JoinColumn(name = "user_id")
     private AppUser appUser;
 
 
