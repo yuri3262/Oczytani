@@ -1,13 +1,16 @@
 package com.project.bilbioteka.App.book;
 
+import com.project.bilbioteka.App.user.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Transactional
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -27,6 +30,12 @@ public class Book {
     private int numberOfPages;
     private String dateOfPublication;
     private Boolean isAvailable;
+
+    @ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "app_user_id")
+    private AppUser appUser;
+
+
 
 
     public Book(String title, String author, String publisher, List<BookCategory> category, int numberOfPages, String dateOfPublication, boolean isAvailable) {

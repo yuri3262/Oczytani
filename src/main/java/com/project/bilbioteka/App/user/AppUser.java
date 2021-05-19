@@ -1,5 +1,6 @@
 package com.project.bilbioteka.App.user;
 
+import com.project.bilbioteka.App.book.Book;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,14 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
+@Transactional
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -33,6 +37,11 @@ public class AppUser implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled = false;
     private Boolean locked = false;
+
+    @OneToMany(mappedBy = "appUser", fetch=FetchType.EAGER)
+    private Set<Book> book;
+
+
 
     public AppUser(String name, String email, String password, UserRole role) {
         this.name = name;
