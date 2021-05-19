@@ -72,20 +72,34 @@ public class AppApplication {
 		// check if admin user already exists
 		List<Book> books = bookService.getAllBooks();
 		for(Book book: books) {
-			if(book.getTitle().equals("Heri Pota"))
+			if(book.getTitle().equals("Heri Pota i daj kamienia"))
 				return;
 		}
 
 
-		List<BookCategoriesENUM> allCategoriesNames = BookCategoriesENUM.getBookCategoriesArray();
 		List<BookCategory> allCategories = new ArrayList<>();
 
 		allCategories.add(new BookCategory(1L,BookCategoriesENUM.ADVENTURE));
 		allCategories.add(new BookCategory(2L,BookCategoriesENUM.ACTION));
 		allCategories.add(new BookCategory(3L,BookCategoriesENUM.ROMANCE));
 
-		Book heriPota = new Book("Heri Pota i daj kamienia","dzej kej they see me rolling","pwn", allCategories,100,"10-10-1990",true);
-		bookService.addBook(heriPota);
+		Book defaultBook = new Book("Heri Pota i daj kamienia","dzej kej they see me rolling","pwn", allCategories,100,"10-10-1990",true);
+		bookService.addBook(defaultBook);
+
+
+
+		for(Book book: books) {
+			if(book.getTitle().equals("Jakis tytul"))
+				return;
+		}
+
+
+		allCategories.clear();
+		allCategories.add(new BookCategory(1L,BookCategoriesENUM.ROMANCE));
+		allCategories.add(new BookCategory(2L,BookCategoriesENUM.CRIMINAL));
+
+		defaultBook = new Book("Jakis tytul","jakis autor","jakis pub", allCategories,420,"05-05-1980",true);
+		bookService.addBook(defaultBook);
 	}
 
 }

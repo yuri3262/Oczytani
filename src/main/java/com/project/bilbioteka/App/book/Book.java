@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
-@Transactional
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -30,6 +30,8 @@ public class Book {
     private int numberOfPages;
     private String dateOfPublication;
     private Boolean isAvailable;
+    private Boolean isPreBooked = false;
+    private Boolean isBooked = false;
 
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -76,5 +78,18 @@ public class Book {
                 .append("\nis availabe: ").append(this.isAvailable);
 
         return  builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id.equals(book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
