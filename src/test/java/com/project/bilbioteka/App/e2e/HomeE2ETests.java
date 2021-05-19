@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 class HomeE2ETests {
 
-    private final String testURL = "https://oczytani.azurewebsites.net";
+    private final String testURL = "http://oczytani.azurewebsites.net";
 
     private URL driverURL;
     {
