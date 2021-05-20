@@ -101,7 +101,7 @@ public class AppUser implements UserDetails {
         this.books.add(book);
     }
 
-    public void removePreBook(Book book){
+    public void removeBook(Book book){
         this.books.remove(book);
     }
 

@@ -39,7 +39,7 @@ public class PreBookController {
     }
 
 
-    @PostMapping("/prebook/{id}")
+    @PostMapping("/prebook/{id}") //TODO: frontend
     @ResponseBody
     public String preBook(@PathVariable Long id, Principal principal)
     {
@@ -55,14 +55,16 @@ public class PreBookController {
 
         AppUser user2 = appUserService.findAppUserByName(principal.getName()); //test czy sie dobrze w bazie zapisalo
 
-        Object[] bookArray = user2.getBooks().toArray();
+        Set<Book> testBooks = user2.getBooks();
 
         StringBuilder string = new StringBuilder();
-        for(Object b : bookArray)
+        for(Book b : testBooks)
         {
-            string.append(((Book)b).getTitle()).append(" | ");
+            string.append(b.getTitle()).append(" | ");
         }
 
         return string.toString();
     }
+
+
 }

@@ -52,6 +52,21 @@ public class AppApplication {
 	}
 
 	@PostConstruct
+	public void createWorkerUser() {
+
+		// check if admin user already exists
+		List<AppUser> users = userService.getAllUsers();
+		for(AppUser user : users) {
+			if(user.getName().equals("worker"))
+				return;
+		}
+
+		AppUser worker = new AppUser("worker", "worker@worker.com", bCryptPasswordEncoder.encode("worker"), UserRole.WORKER);
+		worker.setEnabled(true);
+		userService.addUser(worker);
+	}
+
+	@PostConstruct
 	public void createMietekUser() {
 
 		// check if admin user already exists
@@ -99,6 +114,20 @@ public class AppApplication {
 		allCategories.add(new BookCategory(2L,BookCategoriesENUM.CRIMINAL));
 
 		defaultBook = new Book("Jakis tytul","jakis autor","jakis pub", allCategories,420,"05-05-1980",true);
+		bookService.addBook(defaultBook);
+
+
+		for(Book book: books) {
+			if(book.getTitle().equals("Jakis tytul2"))
+				return;
+		}
+
+
+		allCategories.clear();
+		allCategories.add(new BookCategory(1L,BookCategoriesENUM.SCI_FI));
+		allCategories.add(new BookCategory(2L,BookCategoriesENUM.POETRY));
+
+		defaultBook = new Book("Jakis tytul2","jakis autor2","jakis pub2", allCategories,123,"05-05-1234",true);
 		bookService.addBook(defaultBook);
 	}
 

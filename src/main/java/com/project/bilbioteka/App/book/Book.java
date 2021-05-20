@@ -31,7 +31,6 @@ public class Book {
     private String dateOfPublication;
     private Boolean isAvailable;
     private Boolean isPreBooked = false;
-    private Boolean isBooked = false;
 
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -47,14 +46,6 @@ public class Book {
         this.category = category;
         this.numberOfPages = numberOfPages;
         this.dateOfPublication = dateOfPublication;
-        this.isAvailable = isAvailable;
-    }
-
-    public Boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 
