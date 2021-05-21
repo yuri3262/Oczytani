@@ -44,7 +44,8 @@ public class WorkerPanelController {
         }
 
         model.addAttribute("users", users);
-        return "manage_users_panel";
+        return "worker_users";
+        //return "manage_users_panel"; // dorobic drugiego htmla, wywalic edit i delete czy zostawic zeby tez mogl edytowac i usuwac bo to jest panel admina
     }
 
     @GetMapping("/books")
@@ -76,9 +77,9 @@ public class WorkerPanelController {
         }
 
         model.addAttribute("preBookedBooks", preBookedBooks);
-
+        model.addAttribute("user_id",userId);
         return "pre_booked_user";
-
+        //http://localhost:8080/worker/users --> dodac przycisk prebooked ktory przenosi na tego url /worker/users/{userId}/prebooked ??
     }
 
     @GetMapping("/worker/users/{userId}/booked") //powinno dzialac //TODO: frontend - lista wszystkich wypozyczonych ksiazek uzytkownika
@@ -94,10 +95,11 @@ public class WorkerPanelController {
             }
         }
 
-        model.addAttribute("preBookedBooks", bookedBooks);
+        model.addAttribute("BookedBooks", bookedBooks);
+        model.addAttribute("user_id",userId);
 
         return "booked_user";
-
+        //http://localhost:8080/worker/users --> dodac przycisk booked ktory przenosi na tego url /worker/users/{userId}/booked ??
     }
 
     @PostMapping("/worker/users/{userId}/booked/{bookId}/returnBook") //nie testowane //TODO: frontend - guzik do oddawania ksiazki
@@ -113,7 +115,7 @@ public class WorkerPanelController {
         userRepository.save(appUser);
 
         return "redirect:/worker/users/{userId}/booked";
-
+        // dodac guzik do oddawania ksiazki z postem na "/worker/users/{userId}/booked/{bookId}/returnBook"
     }
 
     @PostMapping("/worker/users/{userId}/prebooked/{bookId}/confirm") //powinno dzialac //TODO: frontend - przycisk confirm w liscie prebooknietych ksiazek
@@ -125,6 +127,7 @@ public class WorkerPanelController {
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
+        // dodac guzik do zatwierdzania ksiazki z postem na "/worker/users/{userId}/prebooked/{bookId}/confirm"
     }
 
     @PostMapping("/worker/users/{userId}/prebooked/{bookId}/deny") //powinno dzialac //TODO: frontend przycisk deny w liscie prebooknietych ksiazek
@@ -136,5 +139,6 @@ public class WorkerPanelController {
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
+        // dodac guzik do deny ksiazki z postem na "/worker/users/{userId}/prebooked/{bookId}/deny"
     }
 }

@@ -40,7 +40,6 @@ public class PreBookController {
 
 
     @PostMapping("/prebook/{id}") //TODO: frontend
-    @ResponseBody
     public String preBook(@PathVariable Long id, Principal principal)
     {
         Book book = bookRepository.getOne(id);
@@ -63,7 +62,7 @@ public class PreBookController {
             string.append(b.getTitle()).append(" | ");
         }
 
-        return string.toString();
+        return "pre_book_success";
     }
 
 
