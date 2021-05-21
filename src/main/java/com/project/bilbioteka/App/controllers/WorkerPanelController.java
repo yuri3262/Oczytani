@@ -45,7 +45,6 @@ public class WorkerPanelController {
 
         model.addAttribute("users", users);
         return "worker_users";
-        //return "manage_users_panel"; // dorobic drugiego htmla, wywalic edit i delete czy zostawic zeby tez mogl edytowac i usuwac bo to jest panel admina
     }
 
     @GetMapping("/books")
@@ -63,7 +62,7 @@ public class WorkerPanelController {
         return "redirect:/books";
     }
 
-    @GetMapping("/worker/users/{userId}/prebooked") //przetestowane, zbiera tylko prebookniete ksiazki //TODO: frontend lista wszystkich prebooknietych ksiazek
+    @GetMapping("/worker/users/{userId}/prebooked")
     public String listPreBookedBooksForUser(@PathVariable Long userId, Model model)
     {
         AppUser appUser = userService.getUser(userId.toString());
@@ -79,10 +78,9 @@ public class WorkerPanelController {
         model.addAttribute("preBookedBooks", preBookedBooks);
         model.addAttribute("user_id",userId);
         return "pre_booked_user";
-        //http://localhost:8080/worker/users --> dodac przycisk prebooked ktory przenosi na tego url /worker/users/{userId}/prebooked ??
     }
 
-    @GetMapping("/worker/users/{userId}/booked") //powinno dzialac //TODO: frontend - lista wszystkich wypozyczonych ksiazek uzytkownika
+    @GetMapping("/worker/users/{userId}/booked")
     public String listBookedBooksForUser(@PathVariable Long userId, Model model)
     {
         AppUser appUser = userService.getUser(userId.toString());
@@ -99,10 +97,9 @@ public class WorkerPanelController {
         model.addAttribute("user_id",userId);
 
         return "booked_user";
-        //http://localhost:8080/worker/users --> dodac przycisk booked ktory przenosi na tego url /worker/users/{userId}/booked ??
     }
 
-    @PostMapping("/worker/users/{userId}/booked/{bookId}/returnBook") //nie testowane //TODO: frontend - guzik do oddawania ksiazki
+    @PostMapping("/worker/users/{userId}/booked/{bookId}/returnBook")
     public String returnBook(@PathVariable Long userId, @PathVariable Long bookId)
     {
         Book book = bookRepository.getOne(bookId);
@@ -115,10 +112,9 @@ public class WorkerPanelController {
         userRepository.save(appUser);
 
         return "redirect:/worker/users/{userId}/booked";
-        // dodac guzik do oddawania ksiazki z postem na "/worker/users/{userId}/booked/{bookId}/returnBook"
     }
 
-    @PostMapping("/worker/users/{userId}/prebooked/{bookId}/confirm") //powinno dzialac //TODO: frontend - przycisk confirm w liscie prebooknietych ksiazek
+    @PostMapping("/worker/users/{userId}/prebooked/{bookId}/confirm")
     public String confirmPreBook(@PathVariable Long userId, @PathVariable Long bookId)
     {
         Book book = bookRepository.getOne(bookId);
@@ -127,10 +123,9 @@ public class WorkerPanelController {
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
-        // dodac guzik do zatwierdzania ksiazki z postem na "/worker/users/{userId}/prebooked/{bookId}/confirm"
     }
 
-    @PostMapping("/worker/users/{userId}/prebooked/{bookId}/deny") //powinno dzialac //TODO: frontend przycisk deny w liscie prebooknietych ksiazek
+    @PostMapping("/worker/users/{userId}/prebooked/{bookId}/deny")
     public String denyPreBook(@PathVariable Long userId, @PathVariable Long bookId)
     {
         Book book = bookRepository.getOne(bookId);
@@ -139,6 +134,5 @@ public class WorkerPanelController {
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
-        // dodac guzik do deny ksiazki z postem na "/worker/users/{userId}/prebooked/{bookId}/deny"
     }
 }
