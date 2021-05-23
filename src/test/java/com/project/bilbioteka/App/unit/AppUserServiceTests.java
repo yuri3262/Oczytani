@@ -59,7 +59,7 @@ class AppUserServiceTests {
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
-        userService.addUser(new AppUser());
+        userService.addUser(new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER));
 
         assertEquals(1, userService.getAllUsers().size());
     }
@@ -69,9 +69,9 @@ class AppUserServiceTests {
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
-        userService.addUser(new AppUser());
-        userService.addUser(new AppUser());
-        userService.addUser(new AppUser());
+        userService.addUser(new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER));
+        userService.addUser(new AppUser("user2", "user2@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER));
+        userService.addUser(new AppUser("user3", "user3@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER));
 
         assertEquals(3, userService.getAllUsers().size());
     }
