@@ -50,12 +50,14 @@ class AppUserServiceTests {
 
     @Test
     public void addUsersAndGetAllOfThem_1() {
+        confirmationTokenRepository.deleteAll();
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
     }
 
     @Test
     public void addUsersAndGetAllOfThem_2() {
+        confirmationTokenRepository.deleteAll();
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
@@ -66,6 +68,7 @@ class AppUserServiceTests {
 
     @Test
     public void addUsersAndGetAllOfThem_3() {
+        confirmationTokenRepository.deleteAll();
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
@@ -78,6 +81,7 @@ class AppUserServiceTests {
 
     @Test
     public void getUser() {
+        confirmationTokenRepository.deleteAll();
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
@@ -125,6 +129,7 @@ class AppUserServiceTests {
 
     @Test
     public void changeUserPassword() {
+        confirmationTokenRepository.deleteAll();
         userRepository.deleteAll();
         assertEquals(0, userService.getAllUsers().size());
 
