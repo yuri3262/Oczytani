@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 class RegistrationE2ETests {
 
-    private final String testURL = "https://oczytani.azurewebsites.net";
+    private final String testURL = "http://oczytani.azurewebsites.net";
 
     private URL driverURL;
     {
@@ -81,11 +81,11 @@ class RegistrationE2ETests {
         emailInput.sendKeys("testmailSelenium@gmail.com");
         submitButton.click();
 
-
+        assertEquals("Welcome!", driver.getTitle());
     }
 
     @Test
-    public void loginWithRegisteredData()
+    public void loginWithAdminData()
     {
         driver.get(testURL + "/login");
         assertEquals("Sign In", driver.getTitle());
@@ -94,9 +94,15 @@ class RegistrationE2ETests {
         WebElement passwordInput = driver.findElement(By.name("password"));
         WebElement submitButton = driver.findElement(By.cssSelector("button"));
 
-        passwordInput.sendKeys("testPassword");
-        emailInput.sendKeys("testmailSelenium@gmail.com");
+        passwordInput.sendKeys("admin");
+        emailInput.sendKeys("admin@admin.com");
         submitButton.click();
+
+        assertEquals("Welcome!", driver.getTitle());
+        WebElement adminLink = driver.findElement(By.id("navbarDarkDropdownMenuLink"));
+        adminLink.click();
+        WebElement logoutLink = driver.findElement(By.xpath("//input[@value='Logout']"));
+        logoutLink.click();
     }
 
 
