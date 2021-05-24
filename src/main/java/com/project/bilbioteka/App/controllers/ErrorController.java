@@ -11,5 +11,9 @@ public class ErrorController {
 
         return "error";
     }
+    @GetMapping("/error/stack")
+    public void viewErrorStackPage() {
+        Thread.dumpStack();
+    }
 
 }
