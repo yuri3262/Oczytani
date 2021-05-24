@@ -30,6 +30,13 @@ public class BookService {
 
         return books;
     }
+    public List<Book> getBooksByName(String providedString) {
+        List<Book> books = new ArrayList<>();
+        String searchString = "%" + providedString + "%";
+        bookRepository.findByTitleContaining(providedString).forEach(books::add);
+
+        return books;
+    }
 
     public void deleteBookById(Long id) { bookRepository.deleteById(id);}
 }

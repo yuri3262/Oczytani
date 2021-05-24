@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.*;
 
@@ -30,9 +31,17 @@ public class PreBookController {
     private BookService bookService;
 
     @GetMapping("/prebook")
-    public String newBookForm(Model model)
+    public String newBookForm(HttpServletRequest request, Model model)
     {
-        List<Book> books = bookService.getAllBooks();
+        String searchString = "";
+        if(request.getParameter("search") != null)
+            searchString = request.getParameter("search");
+
+        List<Book> books = null;
+        if(searchString.isEmpty())
+            books = bookService.getAllBooks();
+        else 
+            books = bookService.getBooksByName(searchString);
 
         model.addAttribute("books", books);
         return "pre_book";
