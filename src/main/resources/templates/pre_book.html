@@ -42,6 +42,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                          <div class="search-container">
+                            <form action="/prebook">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit">Submit</button>
+                            </form>
+                        </div>
 
                     <tr th:each="book : ${books}">
                         <span th:if="${not book.isPreBooked} and ${ book.isAvailable}">
