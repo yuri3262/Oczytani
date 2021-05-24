@@ -1,5 +1,6 @@
 package com.project.bilbioteka.App.user;
 
+import com.project.bilbioteka.App.book.Book;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +8,11 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
+
 
 @Getter
 @Setter
@@ -34,11 +36,15 @@ public class AppUser implements UserDetails {
     private Boolean enabled = false;
     private Boolean locked = false;
 
+    @OneToMany(mappedBy = "appUser", fetch=FetchType.LAZY)
+    private Set<Book> books = new HashSet<>();
+
     public AppUser(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+
     }
 
     @Override
@@ -91,7 +97,25 @@ public class AppUser implements UserDetails {
         this.password = password;
     }
 
+    public void addPreBook(Book book) {
+        this.books.add(book);
+    }
+
+    public void removeBook(Book book){
+        this.books.remove(book);
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     public void setUserName(String userName) {
         this.name = userName;
     }
+
+
 }

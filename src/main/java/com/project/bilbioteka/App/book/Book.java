@@ -1,12 +1,15 @@
 package com.project.bilbioteka.App.book;
 
+import com.project.bilbioteka.App.user.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -27,6 +30,13 @@ public class Book {
     private int numberOfPages;
     private String dateOfPublication;
     private Boolean isAvailable;
+    private Boolean isPreBooked = false;
+
+    @ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private AppUser appUser;
+
+
 
 
     public Book(String title, String author, String publisher, List<BookCategory> category, int numberOfPages, String dateOfPublication, boolean isAvailable) {
@@ -36,14 +46,6 @@ public class Book {
         this.category = category;
         this.numberOfPages = numberOfPages;
         this.dateOfPublication = dateOfPublication;
-        this.isAvailable = isAvailable;
-    }
-
-    public Boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 
@@ -67,5 +69,18 @@ public class Book {
                 .append("\nis availabe: ").append(this.isAvailable);
 
         return  builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id.equals(book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
