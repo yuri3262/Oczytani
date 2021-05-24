@@ -41,14 +41,17 @@
                         <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                          <div class="search-container">
-                            <form action="/prebook">
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit">Submit</button>
-                            </form>
-                        </div>
 
+                    <br>
+                    <div class="input-group">
+                        <form action="/prebook">
+                            <input type="text" class="form-control rounded" placeholder="Search.." name="search" aria-label="Search" aria-describedby="search-addon">
+                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        </form>
+                    </div>
+                    <br>
+
+                    <tbody>
                     <tr th:each="book : ${books}">
                         <span th:if="${not book.isPreBooked} and ${ book.isAvailable}">
                             <th scope="row"><span th:text="${book.id}"></span></th>
