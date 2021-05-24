@@ -26,6 +26,8 @@ public class AppUser implements UserDetails {
     private String name;
     private String email;
     private String password;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
     @Enumerated(EnumType.STRING)
     private UserRole role;
     @Column(name = "enabled")

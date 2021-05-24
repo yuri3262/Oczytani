@@ -15,6 +15,8 @@ class HomeControllerTests {
         HomeController homeController = new HomeController();
 
         assertEquals( "login", homeController.viewLoginPage() );
+        //assertEquals( "home_after_login", homeController.afterLogin() );
+
 
 
     }

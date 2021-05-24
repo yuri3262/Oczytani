@@ -3,6 +3,7 @@ package com.project.bilbioteka.App.user;
 import com.project.bilbioteka.App.registration.token.ConfirmationToken;
 import com.project.bilbioteka.App.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
+    @Autowired
     private final AppUserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -26,6 +28,10 @@ public class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("user with email "+ email + " not found"));
+    }
+
+    public UserDetails loadUserById(Long id) throws UsernameNotFoundException{
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("user with id "+ id + " not found"));
     }
 
     public String signUpUser(AppUser user) {
@@ -102,8 +108,8 @@ public class AppUserService implements UserDetailsService {
         userRepository.deleteById(Long.parseLong(id));
     }
 
-    public int enableUser(String email) {
-        return userRepository.enableUser(email);
+    public void enableUser(String email) {
+        userRepository.enableUser(email);
     }
 
     public boolean checkIfValidOldPassword(final AppUser user, final String oldPassword) {
@@ -113,6 +119,24 @@ public class AppUserService implements UserDetailsService {
     public void changeUserPassword(final AppUser user, final String password) {
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
+    }
+
+
+    public void updateResetPasswordToken(String token, String email){
+        AppUser user = userRepository.findUserByEmail(email);
+        if (userRepository.findByEmail(email).isPresent()) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else throw new IllegalStateException("user not found in database");
+    }
+
+    public AppUser getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    public int deleteUserById(Long id){
+        confirmationTokenService.deleteConfirmationTokenByUserId(id);
+        return userRepository.deleteAppUser(id);
     }
 
 }

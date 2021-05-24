@@ -1,5 +1,7 @@
 package com.project.bilbioteka.App.controllers;
 
+import com.project.bilbioteka.App.book.Book;
+import com.project.bilbioteka.App.book.BookService;
 import com.project.bilbioteka.App.user.AppUser;
 import com.project.bilbioteka.App.user.AppUserService;
 import com.project.bilbioteka.App.user.UserRole;
@@ -11,21 +13,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class AdminPanelController {
+public class WorkerPanelController {
 
     @Autowired
     private AppUserService userService;
 
-    @GetMapping("/admin/users")
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping("/worker/users")
     public String users(Model model) {
         List<AppUser> users = userService.getAllUsers();
 
-        // do not display admin users
+        // do not display admin and worker users
         for(int i = 0; i < users.size(); i++) {
-            if(users.get(i).getRole() == UserRole.ADMIN)
+            if(users.get(i).getRole() == UserRole.ADMIN || users.get(i).getRole() == UserRole.WORKER)
                 users.remove(i);
         }
 
@@ -33,29 +39,18 @@ public class AdminPanelController {
         return "manage_users_panel";
     }
 
+    @GetMapping("/books")
+    public String books(Model model) {
+        List<Book> books = bookService.getAllBooks();
 
-    @GetMapping("/admin/edit/{id}")
-    public String updateUserForm(@PathVariable String id, Model model) {
-        AppUser user = userService.getUser(id);
-        model.addAttribute("user", user);
-        return "update_user";
+        model.addAttribute("books", books);
+        return "manage_books_panel";
     }
 
-    @PostMapping("/admin/update/{id}")
-    public String updateUser(@ModelAttribute("user") AppUser user, @PathVariable String id) {
-        userService.updateUser(user, id);
-        return "redirect:/admin/users";
+    @PostMapping("/books/delete/{id}")
+    public String deleteBook(@PathVariable Long id)
+    {
+        bookService.deleteBookById(id);
+        return "redirect:/books";
     }
-
-    @PostMapping("/admin/delete/{id}")
-    public String deleteUser(@ModelAttribute("user") AppUser user, @PathVariable Long id) {
-        if(userService.loadUserById(id) != null){
-            userService.deleteUserById(id);
-        }
-        return "redirect:/admin/users";
-    }
-
-
-
-
 }
