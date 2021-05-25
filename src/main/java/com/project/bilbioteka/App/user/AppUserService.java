@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -138,5 +136,4 @@ public class AppUserService implements UserDetailsService {
         confirmationTokenService.deleteConfirmationTokenByUserId(id);
         return userRepository.deleteAppUser(id);
     }
-
 }
