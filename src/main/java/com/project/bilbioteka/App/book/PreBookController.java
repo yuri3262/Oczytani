@@ -74,5 +74,15 @@ public class PreBookController {
         return "pre_book_success";
     }
 
+    @GetMapping("/mybooks")
+    public String myBooks(Model model,Principal principal){
+        AppUser user = appUserService.findAppUserByName(principal.getName());
+
+        Set<Book> myBooks = user.getBooks();
+        model.addAttribute("mybooks",myBooks);
+
+        return "my_books";
+    }
+
 
 }
