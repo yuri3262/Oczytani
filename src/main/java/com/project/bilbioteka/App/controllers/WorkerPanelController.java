@@ -10,11 +10,11 @@ import com.project.bilbioteka.App.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -108,6 +108,7 @@ public class WorkerPanelController {
         appUser.removeBook(book);
         book.setIsAvailable(true);
         book.setAppUser(null);
+        book.setDateOfBorrow(null);
         bookRepository.save(book);
         userRepository.save(appUser);
 
@@ -120,6 +121,7 @@ public class WorkerPanelController {
         Book book = bookRepository.getOne(bookId);
         book.setIsAvailable(false);
         book.setIsPreBooked(false);
+        book.setDateOfBorrow(String.valueOf(java.time.LocalDate.now()));
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
