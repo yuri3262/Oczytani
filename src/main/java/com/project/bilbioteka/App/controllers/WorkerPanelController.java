@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -113,7 +112,7 @@ public class WorkerPanelController {
         String today = String.valueOf(java.time.LocalDate.now());
         LocalDate date1 = LocalDate.parse(today, dtf);
         LocalDate date2 = LocalDate.parse(book.getDateOfBorrow(), dtf);
-        long daysBetween = Duration.between(date1, date2).toDays();
+        long daysBetween = ChronoUnit.DAYS.between(date1, date2);
         System.out.println ("Days: " + daysBetween);
         if( daysBetween > 30 )
         {
