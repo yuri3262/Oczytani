@@ -47,6 +47,7 @@
             <td><span th:text="${user.role}"></span></td>
             <td><span th:text="${user.enabled}"></span></td>
             <td><span th:text="${user.locked}"></span></td>
+            <td><span th:text="${user.penaltySum}"></span></td>
             <td>
               <form action="#"  th:action="@{/worker/users/{id}/prebooked(id=${user.id})}"  th:object="${user}"  method="get">
                 <input type="submit" class="btn btn-primary btn-block" value="PREBOOKED">
@@ -55,6 +56,11 @@
             <td>
               <form action="#"  th:action="@{/worker/users/{id}/booked(id=${user.id})}"  th:object="${user}"  method="get">
                 <input type="submit" class="btn btn-primary btn-block" value="BOOKED">
+              </form>
+            </td>
+            <td>
+              <form action="#"  th:action="@{/worker/users/{id}/penalty/remove(id=${user.id})}"  th:object="${user}"  method="post">
+                <input type="submit" class="btn btn-primary btn-block" value="REMOVE PENALTY">
               </form>
             </td>
           </tr>
