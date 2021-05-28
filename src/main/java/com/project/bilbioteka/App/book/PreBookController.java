@@ -79,7 +79,9 @@ public class PreBookController {
         AppUser user = appUserService.findAppUserByName(principal.getName());
 
         Set<Book> myBooks = user.getBooks();
+        Long myPenalty = user.getPenaltySum();
         model.addAttribute("mybooks",myBooks);
+        model.addAttribute("myPenalty",myPenalty);
 
         return "my_books";
     }
