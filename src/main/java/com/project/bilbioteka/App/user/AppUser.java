@@ -8,10 +8,12 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -35,6 +37,8 @@ public class AppUser implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled = false;
     private Boolean locked = false;
+    private Boolean penalty = false;
+    private Long penaltySum = 0L;
 
     @OneToMany(mappedBy = "appUser", fetch=FetchType.LAZY)
     private Set<Book> books = new HashSet<>();

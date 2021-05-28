@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,6 +30,7 @@ public class Book {
     private String dateOfPublication;
     private Boolean isAvailable;
     private Boolean isPreBooked = false;
+    private String dateOfBorrow;
 
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

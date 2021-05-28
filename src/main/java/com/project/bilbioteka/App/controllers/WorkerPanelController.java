@@ -10,11 +10,14 @@ import com.project.bilbioteka.App.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -105,9 +108,24 @@ public class WorkerPanelController {
         Book book = bookRepository.getOne(bookId);
         AppUser appUser = userService.getUser(userId.toString());
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String today = String.valueOf(java.time.LocalDate.now());
+        LocalDate date1 = LocalDate.parse(today, dtf);
+        LocalDate date2 = LocalDate.parse(book.getDateOfBorrow(), dtf);
+        long daysBetween = ChronoUnit.DAYS.between(date2, date1);
+        System.out.println ("Days: " + daysBetween);
+        if( daysBetween > 30 )
+        {
+            appUser.setPenalty(true);
+            Long currentPenalty = appUser.getPenaltySum();
+            appUser.setPenaltySum(currentPenalty+daysBetween-30);
+        }
+
+
         appUser.removeBook(book);
         book.setIsAvailable(true);
         book.setAppUser(null);
+        book.setDateOfBorrow(null);
         bookRepository.save(book);
         userRepository.save(appUser);
 
@@ -120,9 +138,21 @@ public class WorkerPanelController {
         Book book = bookRepository.getOne(bookId);
         book.setIsAvailable(false);
         book.setIsPreBooked(false);
+        book.setDateOfBorrow(String.valueOf(java.time.LocalDate.now()));
         bookRepository.save(book);
 
         return "redirect:/worker/users/{userId}/prebooked";
+    }
+
+    @PostMapping("/worker/users/{userId}/penalty/remove")
+    public String removePenalty(@PathVariable Long userId)
+    {
+        AppUser appUser = userService.getUser(userId.toString());
+        appUser.setPenalty(false);
+        appUser.setPenaltySum(0L);
+
+        userRepository.save(appUser);
+        return "redirect:/worker/users";
     }
 
     @PostMapping("/worker/users/{userId}/prebooked/{bookId}/deny")
