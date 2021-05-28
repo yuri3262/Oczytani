@@ -145,7 +145,7 @@ public class WorkerPanelController {
         return "redirect:/worker/users/{userId}/prebooked";
     }
 
-    @PostMapping("/worker/users/{id}/penalty/remove")
+    @PostMapping("/worker/users/{userId}/penalty/remove")
     public String removePenalty(@PathVariable Long userId)
     {
         AppUser appUser = userService.getUser(userId.toString());
