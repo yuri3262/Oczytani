@@ -38,7 +38,7 @@ public class AppUser implements UserDetails {
     private Boolean enabled = false;
     private Boolean locked = false;
     private Boolean penalty = false;
-    private Long penaltySum = 0;
+    private Long penaltySum = 0L;
 
     @OneToMany(mappedBy = "appUser", fetch=FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
