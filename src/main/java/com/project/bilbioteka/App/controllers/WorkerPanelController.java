@@ -111,7 +111,8 @@ public class WorkerPanelController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String today = String.valueOf(java.time.LocalDate.now());
         LocalDate date1 = LocalDate.parse(today, dtf);
-        LocalDate date2 = LocalDate.parse(book.getDateOfBorrow(), dtf);
+        //LocalDate date2 = LocalDate.parse(book.getDateOfBorrow(), dtf);
+        LocalDate date2 = LocalDate.parse("2021-04-20", dtf);
         long daysBetween = ChronoUnit.DAYS.between(date1, date2);
         System.out.println ("Days: " + daysBetween);
         if( daysBetween > 30 )
