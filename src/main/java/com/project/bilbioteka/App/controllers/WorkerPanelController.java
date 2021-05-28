@@ -109,7 +109,7 @@ public class WorkerPanelController {
         Book book = bookRepository.getOne(bookId);
         AppUser appUser = userService.getUser(userId.toString());
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String today = String.valueOf(java.time.LocalDate.now());
         LocalDate date1 = LocalDate.parse(today, dtf);
         LocalDate date2 = LocalDate.parse(book.getDateOfBorrow(), dtf);
