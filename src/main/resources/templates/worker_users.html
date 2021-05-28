@@ -49,7 +49,7 @@
             <td><span th:text="${user.role}"></span></td>
             <td><span th:text="${user.enabled}"></span></td>
             <td><span th:text="${user.locked}"></span></td>
-            <td><span th:text="${user.penaltySum}zł"></span></td>
+            <td><span th:text="${user.penaltySum}"></span>PLN</td>
             <td>
               <form action="#"  th:action="@{/worker/users/{id}/prebooked(id=${user.id})}"  th:object="${user}"  method="get">
                 <input type="submit" class="btn btn-primary btn-block" value="PREBOOKED">
