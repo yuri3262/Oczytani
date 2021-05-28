@@ -104,6 +104,9 @@ public class WorkerPanelController {
     {
         Book book = bookRepository.getOne(bookId);
         AppUser appUser = userService.getUser(userId.toString());
+        String today = String.valueOf(java.time.LocalDate.now());
+        System.out.println(today);
+        System.out.println(book.getDateOfBorrow());
 
         appUser.removeBook(book);
         book.setIsAvailable(true);
