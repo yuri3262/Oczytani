@@ -13,6 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Book getOne(Long id);
     List<Book> findByTitleContaining(String title);
+    List<Book> findByAuthorContaining(String author);
 
 //    @Transactional
 //    @Modifying(clearAutomatically = true)

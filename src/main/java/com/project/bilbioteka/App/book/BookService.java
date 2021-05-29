@@ -31,9 +31,17 @@ public class BookService {
         List<Book> books = new ArrayList<>();
         String searchString = "%" + providedString + "%";
         bookRepository.findByTitleContaining(providedString).forEach(books::add);
+        return books;
+    }
+
+    public List<Book> getBooksByAuthor(String providedString) {
+        List<Book> books = new ArrayList<>();
+        String searchString = "%" + providedString + "%";
+        bookRepository.findByAuthorContaining(providedString).forEach(books::add);
 
         return books;
     }
+
 
     public void deleteBookById(Long id) { bookRepository.deleteById(id);}
 }

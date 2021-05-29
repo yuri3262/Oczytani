@@ -40,8 +40,12 @@ public class PreBookController {
         List<Book> books = null;
         if(searchString.isEmpty())
             books = bookService.getAllBooks();
-        else 
+        else{
             books = bookService.getBooksByName(searchString);
+            if(books.isEmpty()) {
+                books = bookService.getBooksByAuthor(searchString);
+            }
+        }
 
         model.addAttribute("books", books);
         return "pre_book";
