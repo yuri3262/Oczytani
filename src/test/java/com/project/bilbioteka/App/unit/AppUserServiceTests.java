@@ -95,6 +95,51 @@ class AppUserServiceTests {
     }
 
     @Test
+    public void getByResetPasswordToken() {
+        int initialSize = userService.getAllUsers().size();
+
+        AppUser user = new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER);
+        userService.addUser(user);
+
+        assertEquals(initialSize + 1, userService.getAllUsers().size());
+
+        userService.updateResetPasswordToken("token", user.getEmail());
+        user = userService.getUser(String.valueOf(user.getId()));
+        AppUser foundUser = userService.getByResetPasswordToken(user.getResetPasswordToken());
+
+        assertEquals(foundUser.getName(), user.getName());
+        assertEquals(foundUser.getEmail(), user.getEmail());
+        assertEquals(foundUser.getPassword(), user.getPassword());
+        assertEquals(foundUser.getRole(), user.getRole());
+
+        userService.deleteUserById(user.getId());
+    }
+
+    @Test
+    public void updateUser() {
+        int initialSize = userService.getAllUsers().size();
+
+        AppUser user = new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER);
+        userService.addUser(user);
+
+        assertEquals(initialSize + 1, userService.getAllUsers().size());
+
+        user.setUserName("user2");
+        user.setEmail("user2@mail.com");
+        user.setRole(UserRole.WORKER);
+        userService.updateUser(user, String.valueOf(user.getId()));
+
+        AppUser updatedUser = userRepository.findById(user.getId()).get();
+
+        assertEquals(updatedUser.getName(), user.getName());
+        assertEquals(updatedUser.getEmail(), user.getEmail());
+        assertEquals(updatedUser.getPassword(), user.getPassword());
+        assertEquals(updatedUser.getRole(), user.getRole());
+
+        userService.deleteUserById(user.getId());
+    }
+
+    @Test
     public void deleteUser() {
         int initialSize = userService.getAllUsers().size();
 
@@ -106,6 +151,23 @@ class AppUserServiceTests {
         userService.deleteUser(String.valueOf(user.getId()));
 
         assertEquals(initialSize, userService.getAllUsers().size());
+
+        userService.deleteUserById(user.getId());
+    }
+
+    @Test
+    public void enableUser() {
+        int initialSize = userService.getAllUsers().size();
+
+        AppUser user = new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER);
+        userService.addUser(user);
+
+        assertEquals(initialSize + 1, userService.getAllUsers().size());
+
+        assertFalse(user.getEnabled());
+        userService.enableUser(user.getEmail());
+        user = userService.getUser(String.valueOf(user.getId()));
+        assertTrue(user.getEnabled());
 
         userService.deleteUserById(user.getId());
     }
@@ -123,6 +185,47 @@ class AppUserServiceTests {
         userService.changeUserPassword(user,"pass2");
 
         assertNotEquals(oldPassword, userRepository.findById(user.getId()).get().getPassword());
+
+        userService.deleteUserById(user.getId());
+    }
+
+    @Test
+    public void checkIfValidOldPassword() {
+        int initialSize = userService.getAllUsers().size();
+
+        String oldPassword = "pass";
+        String newPassword = "pass2";
+
+        AppUser user = new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode(newPassword), UserRole.USER);
+        userService.addUser(user);
+
+        assertEquals(initialSize + 1, userService.getAllUsers().size());
+
+        assertTrue(userService.checkIfValidOldPassword(user, newPassword));
+        assertFalse(userService.checkIfValidOldPassword(user, oldPassword));
+
+        userService.deleteUserById(user.getId());
+    }
+
+    @Test
+    public void updateResetPasswordToken() {
+        int initialSize = userService.getAllUsers().size();
+
+        AppUser user = new AppUser("user1", "user1@mail.com", bCryptPasswordEncoder.encode("pass"), UserRole.USER);
+        userService.addUser(user);
+
+        assertEquals(initialSize + 1, userService.getAllUsers().size());
+
+        String token = "token";
+        assertEquals(null, user.getResetPasswordToken());
+        userService.updateResetPasswordToken(token, user.getEmail());
+        AppUser foundUser = userService.getUser(String.valueOf(user.getId()));
+        assertEquals(token, foundUser.getResetPasswordToken());
+
+        String token2 = "token2";
+        userService.updateResetPasswordToken(token2, user.getEmail());
+        foundUser = userService.getUser(String.valueOf(user.getId()));
+        assertEquals(token2, foundUser.getResetPasswordToken());
 
         userService.deleteUserById(user.getId());
     }
